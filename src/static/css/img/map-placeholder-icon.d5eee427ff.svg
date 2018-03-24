@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Map preview icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Map-preview-icon" fill-rule="nonzero" fill="#A6A6A6">
+            <path d="M5.70167849,3.0146464 C4.18487722,3.16438591 3,4.4438215 3,6 C3,7.65685425 4.34314575,9 6,9 C7.5561785,9 8.83561409,7.81512278 8.9853536,6.29832151 C8.68299816,6.42812017 8.3498933,6.5 8,6.5 C6.61928813,6.5 5.5,5.38071187 5.5,4 C5.5,3.6501067 5.57187983,3.31700184 5.70167849,3.0146464 Z M5.9655,0 C9.2595,0 12,2.43 12,5.6055 C12,9.666 7.644,13.725 6.339,14.8665 C6.12136011,15.0432333 5.80963989,15.0432333 5.592,14.8665 C4.287,13.722 0,9.663 0,5.6025 C0,2.43 2.67,0 5.9655,0 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>
