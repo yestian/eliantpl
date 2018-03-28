@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import BottomRuler from './bottomRuler';
 import BottomDefault from './bottomDefault';
+import BottomNodesNav from './bottomNodesNav';
 
 //鼠标mouseenter显示蓝色的线条
 //鼠标mousedown显示标尺，当前尺度
@@ -14,8 +15,8 @@ class Bottom extends Component{
             return <BottomRuler/>
          }else{
              //节点激活状态
-             if(data.noded){
-                 return '';
+             if(typeof data.selectedId!=='undefined'){
+                 return <BottomNodesNav/>;
              }else{
                  //default
                 return <BottomDefault/>;

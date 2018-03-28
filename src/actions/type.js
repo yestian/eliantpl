@@ -32,6 +32,9 @@ const Type={
     NODE_MOUSEENTER:'NODE_MOUSEENTER',//鼠标进入节点后，显示悬浮提示
     NODE_HELPER_EXPAND:'NODE_HELPER_EXPAND',//点击展开节点上的工具栏
     NODE_HELPER_HOVER:'NODE_HELPER_HOVER',//节点辅助工具悬浮在那个上面
+    NODE_HELPER_CLICK:'NODE_HELPER_CLICK',//点击辅助工具上的菜单
+    BOTTOM_NAV_HOVER:'BOTTOM_NAV_HOVER',//底部导航，鼠标Hover操作
+    BOTTOM_NAV_CLICK:'BOTTOM_NAV_CLICK',//点击底部导航栏的操作
 }
 
 export default Type;

@@ -20,7 +20,8 @@ class WorkIframe extends Component{
     //-----------------------------------------------------------------------------
     componentDidUpdate(){
         let ifm= $('#site-iframe-next').contents();
-        let datas=this.props.index.siteData;
+        let index=this.props.index;
+        let datas=index.siteData;
         let {siteId,pageId,bodyId}=datas;
         ifm.find('html').addClass('site-scrollbar allow-drag-cursor wf-design-mode').attr({lang:'zh-CN',spellcheck:'true','data-site':siteId,'data-page':pageId});//html
         ifm.find('head').append(head);//head

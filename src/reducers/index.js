@@ -11,12 +11,17 @@ const indexInit={
     dropPtypeid:0,//drop的父级节点类型，0为body
     pleft:0,ptop:0,pheight:0,pwidth:0,//父节点尺寸
     nodeHelperExpand:0,//是否展开节点
+    bottomNodeHoveredIndex:0,//底部导航，鼠标放在哪个节点上面
 }
 
 //和框架内的页面相关的内容在此处设置
 const index=(state=indexInit,action)=>{
     switch(action.type){
-
+        //底部导航栏，鼠标在哪个节点上面
+        case 'BOTTOM_NAV_HOVER':
+        return Object.assign({},state,{
+            bottomNodeHoveredIndex:action.bottomNodeHoveredIndex
+        });
         //辅助工具上的鼠标在哪个位置
         case 'NODE_HELPER_HOVER':
         return Object.assign({},state,{
@@ -32,6 +37,18 @@ const index=(state=indexInit,action)=>{
         return Object.assign({},state,{
             selectedId:action.data,
             nodeHelperExpand:0,
+            hoveredId:{}
+        });
+        //点击辅助工具上的菜单，选中节点
+        case 'NODE_HELPER_CLICK':
+        return Object.assign({},state,{
+            selectedId:action.data,
+            hoveredId:{}
+        });
+        //点击底部导航上的节点
+        case 'BOTTOM_NAV_CLICK':
+        return Object.assign({},state,{
+            selectedId:action.data,
             hoveredId:{}
         });
         //hover选中节点

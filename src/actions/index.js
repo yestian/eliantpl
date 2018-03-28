@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import cfg from '../common/config/config.json';
 import Type from './type';
-const {SITE_RESIZE_ACTIVE,SITE_RESIZE_DEACTIVE,SITE_RESIZE,LOAD_SITE_DATA,NODE_CLICK,NODE_MOUSEENTER,NODE_HELPER_EXPAND,NODE_HELPER_HOVER}=Type;
+const {SITE_RESIZE_ACTIVE,SITE_RESIZE_DEACTIVE,SITE_RESIZE,LOAD_SITE_DATA,NODE_CLICK,NODE_MOUSEENTER,NODE_HELPER_EXPAND,NODE_HELPER_HOVER,NODE_HELPER_CLICK,BOTTOM_NAV_HOVER,BOTTOM_NAV_CLICK}=Type;
 
 
 export function siteStart(e,ui){
@@ -165,7 +165,7 @@ export function nodeHelperClick(length,index,id){
                         typeId:parseInt(parentId.parent().attr('data-type'),10)
                     }
                 }
-                dispatch({type: NODE_CLICK,data});
+                dispatch({type: NODE_HELPER_CLICK,data});
             }
 
         }
@@ -248,6 +248,54 @@ export function nodeHelperMouseEnter(length,index,id){
         }
     }
 }
+//鼠标离开节点辅助菜单
 export function nodeHelperMouseLeave(){
     return {type:NODE_HELPER_HOVER,nodeHelperHoverId:{}};
+}
+
+//底部导航栏的鼠标悬浮效果，颜色为半白色
+export function bottomNodesNavMouseEnter(indexId){
+    return {type:BOTTOM_NAV_HOVER,bottomNodeHoveredIndex:indexId};
+}
+export function bottomNodesNavMouseLeave(){
+    return {type:BOTTOM_NAV_HOVER,bottomNodeHoveredIndex:0};
+}
+export function bottomNodesNavClick(e,id,index){
+    e.stopPropagation();
+    e.preventDefault();
+    return function(dispatch){
+        if(index===0){return false;}
+
+        let ifm=$('#site-iframe-next').contents();
+        let $e=ifm.find("[data-id="+id+"]");
+        let data={
+            thisid:{
+                id:id,
+                typeId:parseInt($e.attr('data-type'),10)
+            }
+        }
+        if($e.offset().top<50){
+            if(parseInt($e.attr('data-type'),10)===0){
+                data.inside=1;
+            }else{
+                data.hangdown=1;
+            }
+        }
+        //父节点
+        let parentId=$e.parent();
+        if(typeof parentId.attr('data-id')!=='undefined'){
+            data.pid={
+                id:parentId.attr('data-id'),
+                typeId:parseInt(parentId.attr('data-type'),10)
+            }
+        }
+        //爹爹节点
+        if(typeof parentId.parent().attr('data-id')!=='undefined'){
+            data.ppid={
+                id:parentId.parent().attr('data-id'),
+                typeId:parseInt(parentId.parent().attr('data-type'),10)
+            }
+        }
+        dispatch({type:BOTTOM_NAV_CLICK,data});
+    }
 }
