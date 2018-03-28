@@ -1,37 +1,6 @@
 import $ from 'jquery';
-let EYE_TOGGLE='EYE_TOGGLE';//眼睛图标
-let ICO_MOUSE_ENTER='ICO_MOUSE_ENTER';//鼠标进入图标
-let ICO_MOUSE_LEAVE='ICO_MOUSE_LEAVE';//鼠标离开图标
-let TOPBAR_TOGGLE='TOPBAR_TOGGLE';//是否显示顶部菜单
-let SELECT_MEDIA='SELECT_MEDIA';//选择媒体类型，根据发送的参数mediaType显示对应模式
-let TOGGLE_EDGES='TOGGLE_EDGES';//是否显示元素边缘
-let TOGGLE_EMPTY='TOGGLE_EMPTY';//是否显示空元素
-let TOGGLE_GRID='TOGGLE_GRID';//是否显示网格
-let TOGGLE_XRAY='TOGGLE_XRAY';//是否显示X射线
-let TOGGLE_TOTUR='TOGGLE_TOTUR';//是否显示指导视频
-let TOGGLE_LOGO='TOGGLE_LOGO';//点击显示logo下的菜单
-let TOGGLE_ADD='TOGGLE_ADD';//页面添加元素
-let TOGGLE_PAGES='TOGGLE_PAGES';//页面列表切换
-let TOGGLE_CMS='TOGGLE_CMS';//模板选择
-let TOGGLE_PICTURES='TOGGLE_PICTURES';//图片列表
-let TOGGLE_SETTINGS='TOGGLE_SETTINGS';//系统设置
-let TOGGLE_ADDTYPE='TOGGLE_ADDTYPE';//添加按钮下级菜单里面的切换
-let TOGGLE_RIGHT_TABS='TOGGLE_RIGHT_TABS';//右侧顶部按钮切换
-let ADD_SUB_MOUSEENTER='ADD_SUB_MOUSEENTER';//添加子元素的hover事件
-let TOGGLE_QMARK='TOGGLE_QMARK';//添加元素按钮的解释弹窗
-// let ITEM_DRAG='ITEM_DRAG';//拖动元素节点
-let ITEM_DRAG_START='ITEM_DRAG_START';//拖动元素节点
-let ITEM_DRAG_STOP='ITEM_DRAG_STOP';//拖动元素节点
-let ITEM_DRAG_MOUSEDOWN='ITEM_DRAG_MOUSEDOWN';//拖动的元素鼠标按下
-let ITEM_DROP_OVER='ITEM_DROP_OVER';//鼠标落在哪个节点上
-let ITEM_DROP_STOP='ITEM_DROP_STOP';//放置结束
-//数据从客户端定义，因此此处仅做注释
-// let ADD_SUB1_TOGGLE='ADD_SUB1_TOGGLE';//添加按钮里面是否展开，布局
-// let ADD_SUB2_TOGGLE='ADD_SUB2_TOGGLE';//添加按钮里面是否展开，基础
-// let ADD_SUB3_TOGGLE='ADD_SUB3_TOGGLE';//添加按钮里面是否展开，排版
-// let ADD_SUB4_TOGGLE='ADD_SUB4_TOGGLE';//添加按钮里面是否展开，媒体
-// let ADD_SUB5_TOGGLE='ADD_SUB5_TOGGLE';//添加按钮里面是否展开，表单
-// let ADD_SUB6_TOGGLE='ADD_SUB6_TOGGLE';//添加按钮里面是否展开，组件
+import Type from './type';
+const {EYE_TOGGLE,ICO_MOUSE_ENTER,ICO_MOUSE_LEAVE,TOPBAR_TOGGLE,SELECT_MEDIA,TOGGLE_EDGES,TOGGLE_EMPTY,TOGGLE_GRID,TOGGLE_XRAY,TOGGLE_TOTUR,TOGGLE_LOGO,TOGGLE_ADD,TOGGLE_PAGES,TOGGLE_CMS,TOGGLE_PICTURES,TOGGLE_SETTINGS,TOGGLE_ADDTYPE,TOGGLE_RIGHT_TABS,ADD_SUB_MOUSEENTER,TOGGLE_QMARK,ITEM_DRAG_START,ITEM_DRAG_STOP,ITEM_DRAG_MOUSEDOWN,ITEM_DROP_OVER,ITEM_DROP_STOP}=Type;
 
 var timer=null;
 /**
@@ -271,7 +240,7 @@ export function toggleRightTabs(e,right_tab_index){
         dispatch({type:TOGGLE_RIGHT_TABS,right_tab_index});
     }
 }
-export function selectMedia(e,mediaType){
+export function selectMedia(e,mediaType,selectedId){
     //如果按钮已经激活，再次点击阻断提交
     return function(dispatch){
         if($(e.target).is('.bem-TopBar_Body_MediaQueryButton-active')){
@@ -318,6 +287,13 @@ export function selectMedia(e,mediaType){
             mediaSize={};
         }
         dispatch({type:SELECT_MEDIA,media:{mediaType,...mediaSize}});
+        // if(typeof selectedId!=='undefined'){
+        //     let ifm=$('#site-iframe-next').contents();
+        //     let node=ifm.find("[data-id="+selectedId.id+"]");
+        //     let left=node.offset().left+100;
+        //     let width=node.outerWidth();
+        //     dispatch({type:MODIFY_SELECTED_ID,left,width});
+        // }
     }
 }
 /**
@@ -405,7 +381,6 @@ export function dragItemDown(e){
  * @return {[type]}   [description]
  */
 export function itemMouseUp(e){
-    console.log('up');
     return {type:ITEM_DRAG_STOP}
 }
 
@@ -421,7 +396,6 @@ export function itemDropOver(event,ui){
     let ptop=$e.offset().top+35;//父节点的上边距
     let pheight=$e.height();//父节点的高度
     let pwidth=$e.width();//父节点宽度
-    console.log(dropPid)
     return {type:ITEM_DROP_OVER,dropPid,dropPtypeid,pleft,ptop,pheight,pwidth}
 }
 
@@ -437,4 +411,3 @@ export function itemDragStop(e,ui){
 export function itemDropStop(e,ui){
     return {type:ITEM_DROP_STOP,pleft:0,ptop:0,pheight:0,pwidth:0}
 }
-

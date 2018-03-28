@@ -11,7 +11,7 @@ class ResizeHandle extends Component{
             revertDuration: 1,
             start:data.siteStart,
             drag:data.siteDrag,
-            stop:data.siteStop
+            stop:(e,ui)=>{data.siteStop(e,ui,data.index.selectedId)}
         });
         $('.wf-resizing-overlay').mouseup(function(){
             data.siteMouseUp();

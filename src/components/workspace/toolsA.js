@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import Grid from './grid';
 import ItemDragStatus from './tools/itemDragStatus';
 import OutlineDropParentNode from './tools/outlineDropParentNode';
+import HoveredOutline from './tools/hoveredOutline';
+import SelectedOutline from './tools/selectedOutline';
+import OutlineHoveredParentLine from './tools/outlineHoveredParentLine';
 
 
 class ToolsA extends Component{
@@ -28,8 +31,12 @@ class ToolsA extends Component{
                      </div>
                      {/* 可以放置时候的外边框线条 */}
                      <OutlineDropParentNode data={this.props} suit={suit}/>
-                     {/* <HoveredOutline/> */}
-                     {/* <selectedOutline/> */}
+                     {/* 鼠标放在哪个节点上 */}
+                     <HoveredOutline data={this.props}/>
+                     {/* 点击选中哪个节点 */}
+                     <SelectedOutline/>
+                     {/* 展开节点的辅助工具后，鼠标在哪个父级节点上，父级节点的黄色提示框 */}
+                     <OutlineHoveredParentLine data={this.props.index}/>
                  </div>
                  {/* 不能放置元素的节点提示，以及放置成功的绿色线条 */}
                  <ItemDragStatus data={this.props} suit={suit}/>

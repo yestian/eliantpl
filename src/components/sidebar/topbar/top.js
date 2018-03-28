@@ -38,7 +38,7 @@ class Topbar extends Component{
                     <TopbarEye onClick={eyeToggle} onMouseEnter={icoMouseEnter} onMouseLeave={icoMouseLeave} prop={ico_event}/>
                 </div>
                 {/* 中间的媒体图标 */}
-               <TopbarCenter onClick={selectMedia} onMouseEnter={icoMouseEnter} onMouseLeave={icoMouseLeave} media={ico_event.media}/>
+               <TopbarCenter onClick={selectMedia} onMouseEnter={icoMouseEnter} onMouseLeave={icoMouseLeave} media={ico_event.media} index={this.props.index}/>
                <div className="bem-TopBar_Body_Group bem-TopBar_Body_Group-right">
                    {/* 重做和撤销 */}
                    <TopbarUndoRedo  onClick={icoClickToggle} onMouseEnter={icoMouseEnter} onMouseLeave={icoMouseLeave} data={ico_event}/>

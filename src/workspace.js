@@ -46,7 +46,7 @@ class WorkSpace extends Component{
              <div id="workspace" className={`workspace loaded ${typeName}`}>
                  <div className="site-canvas" style={size} >
                      <ToolsFlux/>
-                     <WorkIframe height={iframeH} size={size} data={this.props}/>
+                     <WorkIframe height={iframeH} size={size}/>
                  </div>
             </div>
         )

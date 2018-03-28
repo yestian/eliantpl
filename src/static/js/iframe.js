@@ -1,25 +1,14 @@
-/*
- * jQuery ui dropppable Plugin
- * https://github.com/maxazan/jquery-ui-droppable-iframe
- *
- * Copyright 2015, Pomazan Maksym
- * Licensed under the MIT licenses.
- */
-$(function(){
-//Save native prepareOffsets method from ddmanager
+import $ from 'jquery';
 var nativePrepareOffsets = $.ui.ddmanager.prepareOffsets;
-
 //Overrided prepareOffsets method
 $.ui.ddmanager.prepareOffsets = function(t, event) {
     //Call parent method
     nativePrepareOffsets.apply(this, arguments);
-
     var m = $.ui.ddmanager.droppables[t.options.scope] || [];
-
-    for (i = 0; i < m.length; i++) {
-
+    for (var i = 0; i < m.length; i++) {
         //Iframe fixes
-        if ((doc = m[i].document[0]) !== document) {
+        var doc = m[i].document[0];
+        if (doc !== document) {
             var iframe = $((doc.defaultView || doc.parentWindow).frameElement);
             var iframeOffset = iframe.offset();
             var el = m[i].element;
@@ -122,12 +111,9 @@ $.ui.plugin.add("draggable", "iframeScroll", {
                     }
                 }, 10);
             }
-
-
         });
     },
     stop: function(event, ui, i) {
         clearInterval(i.scrollTimer);
     }
 });
-})
