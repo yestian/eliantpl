@@ -74,15 +74,17 @@ export function loadSiteData(){
     }
 }
 
-
 //点击节点
 export function nodeClick(e,selectedId){
-    e.stopPropagation();
-    e.preventDefault();
+    console.log(2);
+    e.stopPropagation();//阻止冒泡
+    e.preventDefault();//阻止默认行为
     return function(dispatch){
-        let $e=$(e.currentTarget);
+        let $e=$(e.target);
         let id=parseInt($e.attr('data-id'),10);
+        //再次点击，不发送数据
         if(typeof selectedId!=='undefined'){
+            // console.log(id,selectedId.thisid.id);
             if(id===selectedId.thisid.id){
                 return false;
             }
@@ -101,21 +103,22 @@ export function nodeClick(e,selectedId){
                 data.hangdown=1;
             }
         }
-        //父节点
-        let parentId=$e.parent();
-        if(typeof parentId.attr('data-id')!=='undefined'){
-            data.pid={
-                id:parentId.attr('data-id'),
-                typeId:parseInt(parentId.attr('data-type'),10)
+            //父节点
+            let parentId=$e.parent();
+            if(typeof parentId.attr('data-id')!=='undefined'){
+                data.pid={
+                    id:parentId.attr('data-id'),
+                    typeId:parseInt(parentId.attr('data-type'),10)
+                }
             }
-        }
-        //爹爹节点
-        if(typeof parentId.parent().attr('data-id')!=='undefined'){
-            data.ppid={
-                id:parentId.parent().attr('data-id'),
-                typeId:parseInt(parentId.parent().attr('data-type'),10)
+            //爹爹节点
+            if(typeof parentId.parent().attr('data-id')!=='undefined'){
+                data.ppid={
+                    id:parentId.parent().attr('data-id'),
+                    typeId:parseInt(parentId.parent().attr('data-type'),10)
+                }
             }
-        }
+
         dispatch({type: NODE_CLICK,data});
     }
 }

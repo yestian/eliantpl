@@ -24,8 +24,13 @@ class WorkIframe extends Component{
         let datas=index.siteData;
         let {siteId,pageId,bodyId}=datas;
         ifm.find('html').addClass('site-scrollbar allow-drag-cursor wf-design-mode').attr({lang:'zh-CN',spellcheck:'true','data-site':siteId,'data-page':pageId});//html
-        ifm.find('head').append(head);//head
-        ifm.find('body').attr({'data-id':bodyId,'data-type':0});
+        if(!ifm.find('head').children().length){
+            ifm.find('head').append(head);//head
+        }
+        let body=ifm.find('body');
+        body.attr({'data-id':bodyId,'data-type':0});
+        document.getElementById('site-iframe-next').contentDocument.getElementsByTagName('body')[0].addEventListener('click',(e)=>{this.props.nodeClick(e,index.selectedId)});
+
         //------------节点无关内容--------
         let org=this.props.ico.ico_event;
         //激活拖动
@@ -69,7 +74,7 @@ class WorkIframe extends Component{
                                 'data-type':evt.tid,
                                 key:Math.random(),
                                 className:`${Nodes[evt.tid].className}${empty}`,
-                                onClick:(e)=>nodeClick(e,index.selectedId),
+                                // onClick:(e)=>nodeClick(e,index.selectedId),
                                 onMouseEnter:(e)=>nodeMouseEnter(e,index.selectedId),
                                 onMouseLeave:(e)=>nodeMouseLeave(e,index.selectedId),
                              },
