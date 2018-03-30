@@ -39,6 +39,7 @@ const Type={
     TOGGLE_LAYOUT_ADVANCED:'TOGGLE_LAYOUT_ADVANCED',//打开css的layout高级设置
     DISPLAY_SETTING_HOVER:'DISPLAY_SETTING_HOVER',//右侧显示设置，鼠标悬浮事件
     DISPLAY_SETTING_CLICK:'DISPLAY_SETTING_CLICK',//右侧显示设置，鼠标点击事件
+    UPDATE_DISPLAY:'UPDATE_DISPLAY',//选中节点的显示方式
 }
 
 export default Type;

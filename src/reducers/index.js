@@ -18,6 +18,18 @@ const indexInit={
 //和框架内的页面相关的内容在此处设置
 const index=(state=indexInit,action)=>{
     switch(action.type){
+        //更新网站数据
+        case 'UPDATE_DISPLAY':
+        let data=state.siteData.data;
+        for(let i=0;i<data.length;i++){
+            if(data[i].id===state.selectedId.thisid.id){
+                let newObj=Object.assign({},state,{
+                    siteData:state.siteData
+                });
+                newObj.siteData.data[i].display=action.display;
+                return newObj;
+            }
+        }
         //底部导航栏，鼠标在哪个节点上面
         case 'BOTTOM_NAV_HOVER':
         return Object.assign({},state,{
@@ -92,6 +104,7 @@ const index=(state=indexInit,action)=>{
         return state;
     }
 }
+
 
 const todoApp = combineReducers({
   ico,index,right

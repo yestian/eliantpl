@@ -1,6 +1,6 @@
 import Type from './type';
 import $ from 'jquery';
-const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK}=Type;
+const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY}=Type;
 
 let timer=null;
 
@@ -43,7 +43,7 @@ export function layoutIcoMouseEnter(e,index){
         tiptext='弹性布局';
         break;
         case 5:
-        tiptext='无';
+        tiptext='隐藏';
         width=width2;
         path=path2;
         clipPath=clipPath2;
@@ -80,5 +80,8 @@ export function layoutIcoMouseLeave() {
 //点击了布局的哪个视图模式
 export function displaySettingClick(index){
     clearTimeout(timer);
-    return {type:DISPLAY_SETTING_CLICK,displaySettingIndex:index}
+    return function(dispatch){
+        dispatch({type:UPDATE_DISPLAY,display:index});
+        dispatch({type:DISPLAY_SETTING_CLICK});
+    }
 }
