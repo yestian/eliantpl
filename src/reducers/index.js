@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import ico from './ico';
+import right from './right';
 
 const indexInit={
-    noded:0,//是否已经选择了节点判断，加载完页面，默认不选中任何节点
+    // noded:0,//是否已经选择了节点判断，加载完页面，默认不选中任何节点
     siteResizeActive:0,//激活网站拖拽功能
     siteNowX:0,//鼠标偏移的值
     siteDragWidth:0,//因drag，重新设置的宽度，此处有值，媒体使用此处的宽度
@@ -93,7 +94,7 @@ const index=(state=indexInit,action)=>{
 }
 
 const todoApp = combineReducers({
-  ico,index
+  ico,index,right
 })
 
 export default todoApp;

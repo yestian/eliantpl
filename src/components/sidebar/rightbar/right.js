@@ -16,7 +16,7 @@ class RightBar extends Component{
                 <div id="right-sidebar" className="right-sidebar">
                     <RightTabs  onClick={toggleRightTabs} onMouseEnter={icoMouseEnter} onMouseLeave={icoMouseLeave} data={data}/>
                     <div className="inner">
-                        <RightInner data={data}/>
+                        <RightInner/>
                     </div>
                 </div>
             )

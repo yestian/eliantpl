@@ -14,23 +14,24 @@ const head=`<meta charset="utf-8"/>
 
 class WorkIframe extends Component{
     componentDidMount(){
-        // 发送获取数据的请求
         this.props.loadSiteData();
+
+        let {nodeClick,bodyMouseEnter,bodyMouseLeave}=this.props;
+        let body=document.getElementById('site-iframe-next').contentDocument.getElementsByTagName('body')[0];
+        // let ifm= $('#site-iframe-next').contents();
+        body.addEventListener('click',(e)=>{nodeClick(e)});
+        body.addEventListener('mouseenter',(e)=>{bodyMouseEnter(e)});
+        body.addEventListener('mouseleave',(e)=>{bodyMouseLeave(e)});
     }
-    //-----------------------------------------------------------------------------
     componentDidUpdate(){
         let ifm= $('#site-iframe-next').contents();
-        let index=this.props.index;
-        let datas=index.siteData;
+        let datas=this.props.index.siteData;
         let {siteId,pageId,bodyId}=datas;
         ifm.find('html').addClass('site-scrollbar allow-drag-cursor wf-design-mode').attr({lang:'zh-CN',spellcheck:'true','data-site':siteId,'data-page':pageId});//html
         if(!ifm.find('head').children().length){
             ifm.find('head').append(head);//head
         }
-        let body=ifm.find('body');
-        body.attr({'data-id':bodyId,'data-type':0});
-        document.getElementById('site-iframe-next').contentDocument.getElementsByTagName('body')[0].addEventListener('click',(e)=>{this.props.nodeClick(e,index.selectedId)});
-
+        ifm.find('body').attr({'data-id':bodyId,'data-type':0});
         //------------节点无关内容--------
         let org=this.props.ico.ico_event;
         //激活拖动
@@ -42,12 +43,12 @@ class WorkIframe extends Component{
     }
 
     render(){
+        let iframe={
+            height: '203px',display: 'inline',minHeight: '100%',maxHeight: '100%',border: 0,position: 'relative',overflow: 'hidden',transformStyle: 'preserve-3d',pointerEvents: 'auto'
+        }
         let index=this.props.index;
         let datas=index.siteData;
-        let {nodeClick,nodeMouseEnter,nodeMouseLeave}=this.props;
-         let iframe={
-             height: '203px',display: 'inline',minHeight: '100%',maxHeight: '100%',border: 0,position: 'relative',overflow: 'hidden',transformStyle: 'preserve-3d',pointerEvents: 'auto'
-         }
+        let {nodeMouseEnter,nodeMouseLeave}=this.props;
          if(typeof datas!=='undefined'){
              let data=datas.data;
              function digui(data,pid=0){
@@ -74,9 +75,8 @@ class WorkIframe extends Component{
                                 'data-type':evt.tid,
                                 key:Math.random(),
                                 className:`${Nodes[evt.tid].className}${empty}`,
-                                // onClick:(e)=>nodeClick(e,index.selectedId),
-                                onMouseEnter:(e)=>nodeMouseEnter(e,index.selectedId),
-                                onMouseLeave:(e)=>nodeMouseLeave(e,index.selectedId),
+                                onMouseEnter:(e)=>{nodeMouseEnter(e,index.selectedId)},
+                                onMouseLeave:(e)=>{nodeMouseLeave(e,index.selectedId)},
                              },
                              sons));
                      }
@@ -92,6 +92,8 @@ class WorkIframe extends Component{
             )
         }else{
             return (<div id="site-iframe-next-container">
+                {/* //第一次加载供上面获取节点，然后就执行if里面的 */}
+                {/* loading...界面 */}
                 <iframe id="site-iframe-next" title="workspaceIframe" name="workframe" style={{...iframe,...this.props.size,height:this.props.iframeH}}></iframe>
             </div>);
         }

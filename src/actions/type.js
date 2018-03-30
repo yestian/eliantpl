@@ -35,6 +35,10 @@ const Type={
     NODE_HELPER_CLICK:'NODE_HELPER_CLICK',//点击辅助工具上的菜单
     BOTTOM_NAV_HOVER:'BOTTOM_NAV_HOVER',//底部导航，鼠标Hover操作
     BOTTOM_NAV_CLICK:'BOTTOM_NAV_CLICK',//点击底部导航栏的操作
+    TOGGLE_CSSLAYOUT:'TOGGLE_CSSLAYOUT',//展开csslayout模块
+    TOGGLE_LAYOUT_ADVANCED:'TOGGLE_LAYOUT_ADVANCED',//打开css的layout高级设置
+    DISPLAY_SETTING_HOVER:'DISPLAY_SETTING_HOVER',//右侧显示设置，鼠标悬浮事件
+    DISPLAY_SETTING_CLICK:'DISPLAY_SETTING_CLICK',//右侧显示设置，鼠标点击事件
 }
 
 export default Type;

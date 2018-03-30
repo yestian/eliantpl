@@ -76,7 +76,6 @@ export function loadSiteData(){
 
 //点击节点
 export function nodeClick(e,selectedId){
-    console.log(2);
     e.stopPropagation();//阻止冒泡
     e.preventDefault();//阻止默认行为
     return function(dispatch){
@@ -84,7 +83,6 @@ export function nodeClick(e,selectedId){
         let id=parseInt($e.attr('data-id'),10);
         //再次点击，不发送数据
         if(typeof selectedId!=='undefined'){
-            // console.log(id,selectedId.thisid.id);
             if(id===selectedId.thisid.id){
                 return false;
             }
@@ -176,6 +174,35 @@ export function nodeHelperClick(length,index,id){
     }
 }
 //鼠标进入一个元素
+export function bodyMouseEnter(e){
+    return function(dispatch){
+        if(!(e.fromElement===null)){
+            return false;
+        }
+        let $e=$(e.target);
+        let id=parseInt($e.attr('data-id'),10);
+        let _left=$('#site-iframe-next').offset().left;
+        let _top=$('#site-iframe-next').offset().top;
+        let data={
+            id:id,
+            left:$e.offset().left+_left,
+            top:$e.offset().top+_top,
+            width:$e.outerWidth(),
+            height:$e.outerHeight(),
+            typeId:0,
+            inside:1
+        }
+        dispatch({ type: NODE_MOUSEENTER,hoveredId:data});
+    }
+}
+export function bodyMouseLeave(e){
+    return function(dispatch){
+        if(!(e.toElement===null)){
+            return false;
+        }
+        dispatch({type: NODE_MOUSEENTER,hoveredId:{}});
+    }
+}
 export function nodeMouseEnter(e,selectedId){
     return function(dispatch){
         let $e=$(e.currentTarget);

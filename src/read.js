@@ -135,3 +135,90 @@ isEphemeralChangeInProgress: W,
 forceCanvasBodyRerender: Y,
 isIndexed: Boolean(Z.lastSearchIndex),
 classNameMap: (0,
+
+    innerRef: this.setScrollRef,
+    style: A(e.enabled, e.width),
+    onScroll: this.handleScroll,
+    onDragStart: this.handleDragStart,
+    onDragEnd: this.handleDragEnd,
+    onMouseEnter: this.handleMouseEnter,
+    onMouseLeave: this.handleMouseLeave,
+    scrollbarsEnabled: e.enabled
+
+    var b = a.lastX
+      , c = a.lastY
+      , d = a.lastWidth
+      , e = a.lastHeight
+      , f = a.snapType
+      , g = a.outrangedSnap
+      , i = a.startX
+      , j = a.startY
+      , l = a.startWidth
+      , m = a.startHeight
+      , n = a.startWidthRaw
+      , o = a.nativeWidth
+      , p = a.nativeHeight;
+
+      lastX: b,
+      lastY: c,
+      lastWidth: d,
+      lastHeight: e,
+      snapType: f,
+      outrangedSnap: g,
+      startX: i,
+      startY: j,
+      startWidth: l,
+      startHeight: m,
+      startWidthRaw: n,
+      nativeWidth: o,
+      nativeHeight: p
+
+      item: b.getIn(["currentInlineItem", "item"]),
+      collection: I,
+      itemsFor: r,
+      className: m,
+      collections: p,
+      saveItem: this.saveInlineItem,
+      submitItem: A,
+      saveItemAndPublish: this.saveAndPublishInlineItem,
+      saveItemAsDraft: this.saveDraftInlineItem,
+      deleteItem: z,
+      duplicateItem: y,
+      archiveItem: x,
+      deselectItem: t,
+      modifyItem: w,
+      uploadDbFile: aa,
+      unarchiveItem: B,
+      openDetailPage: E,
+      setFocus: G,
+      confirm: k,
+      keyboardState: f,
+      timezone: u,
+      renderMode: n,
+      preferredUrl: h.preferredUrl,
+      lastPublished: h.lastPublished,
+      lastPublishedId: h.lastPublicationId,
+      publishDropdownState: i,
+      validationErrorState: j,
+      isCommercePanel: K,
+      collectionState: c
+
+      area: !0,
+      base: !0,
+      basefont: !0,
+      br: !0,
+      col: !0,
+      command: !0,
+      embed: !0,
+      frame: !0,
+      hr: !0,
+      img: !0,
+      input: !0,
+      isindex: !0,
+      keygen: !0,
+      link: !0,
+      meta: !0,
+      param: !0,
+      source: !0,
+      track: !0,
+      wbr: !0

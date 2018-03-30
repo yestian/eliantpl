@@ -37,6 +37,7 @@ class DesignerReact extends Component {
         }
         let icoprops=this.props.ico.ico_event;
         let {toggleLogo,closeSubMark}=this.props;
+        let rightside=this.props.right;
         return (
             <div>
                 <div>
@@ -67,7 +68,7 @@ class DesignerReact extends Component {
                     {/* CMS按钮的二级页面 */}
                     <LeftCMSSub/>
                     {/* 鼠标进入每个图标的提示信息 */}
-                    <SidebarIcoEnter icoprops={icoprops}/>
+                    <SidebarIcoEnter icoprops={icoprops} right={rightside}/>
                     {/* 点击Logo产生的菜单 */}
                     <LogoOpenMenu icoprops={icoprops} onMouseLeave={toggleLogo}/>
                 </div>

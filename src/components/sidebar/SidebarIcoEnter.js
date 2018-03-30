@@ -1,7 +1,8 @@
 import React from 'react';
 
 function SidebarIcoEnter(props){
-        if(!!props.icoprops.enter!==false){
+    let right=props.right.layout.displaySettingTip;
+        if(props.icoprops.enter){
             let ico=props.icoprops;
             let tooltip={
                 position: 'absolute',
@@ -62,8 +63,19 @@ function SidebarIcoEnter(props){
                     </div>
                 )
             }
+        }else if(typeof right!=='undefined' && right.top){
+                return (
+                    <div>
+                        <div className="bem-Tooltip " style={{position: 'absolute', top: right.top, left: right.left, pointerEvents: 'none', opacity: 1, transform: 'translate3d(0px, 0px, 0px)'}}>
+                            <svg viewBox={`0 0 ${right.width} 26`} style={{display: 'block', overflow: 'visible', position: 'absolute', width: right.width, height: 26, borderRadius: 0, color: 'currentcolor'}}>
+                                <path d={right.path} clipPath={right.clipPath} fill="currentColor" style={{strokeWidth: 0, stroke: 'black'}} />
+                            </svg>
+                            <div className="bem-Tooltip_Body" style={{position: 'relative',textAlign:'center',width:right.width}}>{right.tiptext}</div>
+                        </div>
+                    </div>
+                )
         }else{
-            return '';
+            return null;
         }
 
 

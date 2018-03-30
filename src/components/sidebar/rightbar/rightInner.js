@@ -9,7 +9,7 @@ import RightTab5Content from './rightTab5Content';
 class RightInner extends Component{
     //提供参数，contents里面显示标题等内容
     render() {
-        let right=this.props.data.right;
+        let right=this.props.ico.right;
         if(right.right_tab_index===1){
             return <RightTab1Content data={this.props}/>
         }

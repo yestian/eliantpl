@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import Nodes from '../../../common/config/getNodeRelated.json';
 
-import IsDummyTab1 from './isDummyTab1';
-import IsSelectedInput from './isSelectedInput';
+import IsDummyTab1 from './tab1/isDummyTab1';
+import IsSelectedInput from './tab1/isSelectedInput';
 
 class RightTab1Content extends Component{
      render(){
-         let data=this.props.data,
-         sameClassNum='无',
-         title='没有选择';
-         
-         if(data.index.noded){
-             sameClassNum=10000;
-             title="有标题";
+         let data=this.props.data;
+         let index=data.index;
+
+         let sameClassNum='无';
+         let nodeTitle='没有选择';
+         let nodeIco='n-div';
+         if(typeof index.selectedId!=='undefined'){
+             let thisId=Nodes[index.selectedId.thisid.typeId];
+             nodeTitle=thisId.name;
+             nodeIco=thisId.ico;
          }
+
          return (
             <div className="tab-pane">
                 <div className="style-tab kit-sidebar-tab">
                     <div className="kit-sidebar-top-section">
                         <div className="selected-node-title">
                              <div className="type-icon-inset">
-                                 <div className="el-icon n-div"></div>
+                                 <div className={`el-icon ${nodeIco}`}></div>
                              </div>
-                             <div className="label">{title}</div>
+                             <div className="label">{nodeTitle}</div>
                         </div>
                         <div className="kit-divider top"></div>
                          {/* 根据是否选择了节点，变换不同的内容 */}
@@ -36,4 +40,4 @@ class RightTab1Content extends Component{
          )
     }
 }
-export default connect(state=>state)(RightTab1Content);
+export default RightTab1Content;
