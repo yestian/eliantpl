@@ -18,7 +18,7 @@ class GuidePanel extends Component{
                          <div className="bem-Frame_Body">
                              <div className="bem-ButtonGroup">
                                  <button type="button" className={`bem-Button bem-Button-block bem-ButtonGroup_Button${display===1?' bem-Button-active':''}`}
-                                     onClick={()=>{onClick(1)}}
+                                     onClick={()=>{onClick(1,display)}}
                                      onMouseEnter={(e)=>{onMouseEnter(e,1)}}
                                      onMouseLeave={onMouseLeave}>
                                      <div className="bem-Button_Inner">
@@ -26,7 +26,7 @@ class GuidePanel extends Component{
                                      </div>
                                  </button>
                                  <button type="button" className={`bem-Button bem-Button-block bem-ButtonGroup_Button${display===2?' bem-Button-active':''}`}
-                                     onClick={()=>{onClick(2)}}
+                                     onClick={()=>{onClick(2,display)}}
                                      onMouseEnter={(e)=>{onMouseEnter(e,2)}}
                                      onMouseLeave={onMouseLeave}>
                                      <div className="bem-Button_Inner">
@@ -38,7 +38,7 @@ class GuidePanel extends Component{
                                      </div>
                                  </button>
                                  <button type="button" className={`bem-Button bem-Button-block bem-ButtonGroup_Button${display===3?' bem-Button-active':''}`}
-                                     onClick={()=>{onClick(3)}}
+                                     onClick={()=>{onClick(3,display)}}
                                      onMouseEnter={(e)=>{onMouseEnter(e,3)}}
                                      onMouseLeave={onMouseLeave}>
                                      <div className="bem-Button_Inner">
@@ -48,7 +48,7 @@ class GuidePanel extends Component{
                                      </div>
                                  </button>
                                  <button type="button" className={`bem-Button bem-Button-block bem-ButtonGroup_Button${display===4?' bem-Button-active':''}`}
-                                     onClick={()=>{onClick(4)}}
+                                     onClick={()=>{onClick(4,display)}}
                                      onMouseEnter={(e)=>{onMouseEnter(e,4)}}
                                      onMouseLeave={onMouseLeave}>
                                      <div className="bem-Button_Inner">
@@ -56,7 +56,7 @@ class GuidePanel extends Component{
                                      </div>
                                  </button>
                                  <button type="button" className={`bem-Button bem-Button-block bem-ButtonGroup_Button${display===5?' bem-Button-active':''}`}
-                                     onClick={()=>{onClick(5)}}
+                                     onClick={()=>{onClick(5,display)}}
                                      onMouseEnter={(e)=>{onMouseEnter(e,5)}}
                                      onMouseLeave={onMouseLeave}>
                                      <div className="bem-Button_Inner">

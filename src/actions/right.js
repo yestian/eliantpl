@@ -78,10 +78,12 @@ export function layoutIcoMouseLeave() {
 }
 
 //点击了布局的哪个视图模式
-export function displaySettingClick(index){
+export function displaySettingClick(newIndex,oldIndex){
     clearTimeout(timer);
     return function(dispatch){
-        dispatch({type:UPDATE_DISPLAY,display:index});
+        //如果已经是选中状态，则返回
+        if(newIndex===oldIndex){return false;}
+        dispatch({type:UPDATE_DISPLAY,display:newIndex});
         dispatch({type:DISPLAY_SETTING_CLICK});
     }
 }

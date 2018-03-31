@@ -30,6 +30,7 @@ const index=(state=indexInit,action)=>{
                 return newObj;
             }
         }
+        break;
         //底部导航栏，鼠标在哪个节点上面
         case 'BOTTOM_NAV_HOVER':
         return Object.assign({},state,{
