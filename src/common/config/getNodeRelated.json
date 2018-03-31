@@ -5,6 +5,7 @@
         "ico":"n-body",
         "className":"",
         "name":"body",
+        "en":"body",
         "accept":""
     },
     {
@@ -13,6 +14,7 @@
         "ico":"n-div",
         "className":"w-section",
         "name":"区块",
+        "en":"section",
         "accept":""
     },
     {
@@ -21,6 +23,7 @@
         "ico":"n-container",
         "className":"w-container",
         "name":"容器",
+        "en":"container",
         "accept":""
     },
     {
@@ -29,6 +32,7 @@
         "ico":"n-row",
         "className":"w-row",
         "name":"多列",
+        "en":"row",
         "accept":""
     },
     {
@@ -37,6 +41,7 @@
         "ico":"n-column",
         "className":"w-col",
         "name":"列元素",
+        "en":"column",
         "accept":""
     },
     {
@@ -45,6 +50,7 @@
         "ico":"n-div",
         "className":"",
         "name":"普通块",
+        "en":"div",
         "accept":""
     },
     {
@@ -53,6 +59,7 @@
         "ico":"n-a",
         "className":"w-inline-block",
         "name":"链接块",
+        "en":"inline-block",
         "accept":""
     },
     {
@@ -61,6 +68,7 @@
         "ico":"n-a",
         "className":"w-button",
         "name":"按钮",
+        "en":"button",
         "accept":""
     },
     {
@@ -69,6 +77,7 @@
         "ico":"n-ul",
         "className":"",
         "name":"列表",
+        "en":"ul",
         "accept":""
     },
     {
@@ -77,6 +86,7 @@
         "ico":"n-li",
         "className":"",
         "name":"列表项",
+        "en":"li",
         "accept":""
     },
     {
@@ -85,6 +95,7 @@
         "ico":"n-h1",
         "className":"",
         "name":"H1标题",
+        "en":"h1",
         "accept":""
     },
     {
@@ -93,6 +104,7 @@
         "ico":"n-h2",
         "className":"",
         "name":"H2标题",
+        "en":"h2",
         "accept":""
     },
     {
@@ -101,6 +113,7 @@
         "ico":"n-h3",
         "className":"",
         "name":"H3标题",
+        "en":"h3",
         "accept":""
     },
     {
@@ -109,6 +122,7 @@
         "ico":"n-h4",
         "className":"",
         "name":"H4标题",
+        "en":"h4",
         "accept":""
     },
     {
@@ -117,6 +131,7 @@
         "ico":"n-h5",
         "className":"",
         "name":"H5标题",
+        "en":"h5",
         "accept":""
     },
     {
@@ -125,6 +140,7 @@
         "ico":"n-h6",
         "className":"",
         "name":"H6标题",
+        "en":"h6",
         "accept":""
     },
     {
@@ -133,6 +149,7 @@
         "ico":"n-p",
         "className":"",
         "name":"段落",
+        "en":"p",
         "accept":""
     },
     {
@@ -141,6 +158,7 @@
         "ico":"n-a",
         "className":"",
         "name":"文本链接",
+        "en":"textlink",
         "accept":""
     },
     {
@@ -149,6 +167,7 @@
         "ico":"n-textdiv",
         "className":"",
         "name":"文本块",
+        "en":"textdiv",
         "accept":""
     },
     {
@@ -157,6 +176,7 @@
         "ico":"n-blockquote",
         "className":"",
         "name":"块引用",
+        "en":"blockquote",
         "accept":""
     },
     {
@@ -165,6 +185,7 @@
         "ico":"n-richdiv",
         "className":"w-richtext",
         "name":"富文本",
+        "en":"richdiv",
         "accept":""
     },
     {
@@ -173,6 +194,7 @@
         "ico":"n-img",
         "className":"",
         "name":"图片",
+        "en":"img",
         "accept":""
     },
     {
@@ -181,6 +203,7 @@
         "ico":"n-video",
         "className":"w-video w-embed",
         "name":"视频",
+        "en":"video",
         "accept":""
     },
     {
@@ -189,6 +212,7 @@
         "ico":"n-form",
         "className":"w-form",
         "name":"表单块",
+        "en":"form-div",
         "accept":""
     },
     {
@@ -197,6 +221,7 @@
         "ico":"n-form",
         "className":"",
         "name":"表单",
+        "en":"form",
         "accept":""
     },
     {
@@ -205,6 +230,7 @@
         "ico":"n-span",
         "className":"",
         "name":"元素注释",
+        "en":"label",
         "accept":""
     },
     {
@@ -213,6 +239,7 @@
         "ico":"n-input",
         "className":"w-input",
         "name":"单行文本",
+        "en":"input",
         "accept":""
     },
     {
@@ -221,6 +248,7 @@
         "ico":"n-textarea",
         "className":"w-input",
         "name":"多行文本",
+        "en":"textarea",
         "accept":""
     },
     {
@@ -229,6 +257,7 @@
         "ico":"n-div",
         "className":"w-checkbox-input",
         "name":"复选框",
+        "en":"checkbox",
         "accept":""
     },
     {
@@ -237,6 +266,7 @@
         "ico":"n-checkbox",
         "className":"w-checkbox-input",
         "name":"单选框",
+        "en":"radio",
         "accept":""
     },
     {
@@ -245,6 +275,7 @@
         "ico":"n-select",
         "className":"w-select",
         "name":"下拉列表",
+        "en":"select",
         "accept":""
     },
     {
@@ -253,6 +284,7 @@
         "ico":"",
         "className":"",
         "name":"选项",
+        "en":"option",
         "accept":""
     },
     {
@@ -261,6 +293,7 @@
         "ico":"n-button",
         "className":"w-button",
         "name":"表单按钮",
+        "en":"button",
         "accept":""
     },
     {
@@ -269,6 +302,7 @@
         "ico":"n-input",
         "className":"w-input",
         "name":"搜索框",
+        "en":"input",
         "accept":""
     },
     {
@@ -277,6 +311,7 @@
         "ico":"n-tabs",
         "className":"w-tabs",
         "name":"选项卡",
+        "en":"tabs",
         "accept":""
     },
     {
@@ -285,6 +320,7 @@
         "ico":"n-tabs-menu",
         "className":"w-tab-menu",
         "name":"选项菜单",
+        "en":"tab-menu",
         "accept":""
     },
     {
@@ -293,6 +329,7 @@
         "ico":"n-mask",
         "className":"w-tab-content",
         "name":"选项内容容器",
+        "en":"tab-content",
         "accept":""
     },
     {
@@ -301,6 +338,7 @@
         "ico":"n-tabs-pane",
         "className":"w-tab-pane",
         "name":"选项内容",
+        "en":"tab-pane",
         "accept":""
     },
     {
@@ -309,6 +347,7 @@
         "ico":"n-nav",
         "className":"w-nav",
         "name":"导航栏",
+        "en":"nav",
         "accept":""
     },
     {
@@ -317,6 +356,7 @@
         "ico":"n-a",
         "className":"w-nav-brand",
         "name":"品牌图标",
+        "en":"nav-brand",
         "accept":""
     },
     {
@@ -325,6 +365,7 @@
         "ico":"n-div",
         "className":"w-nav-menu",
         "name":"导航菜单",
+        "en":"nav-menu",
         "accept":""
     },
     {
@@ -333,6 +374,7 @@
         "ico":"n-div",
         "className":"w-nav-link",
         "name":"导航链接",
+        "en":"nav-link",
         "accept":""
     },
     {
@@ -341,6 +383,7 @@
         "ico":"n-dropdown",
         "className":"w-dropdown",
         "name":"下拉菜单",
+        "en":"dropdown",
         "accept":""
     },
     {
@@ -349,6 +392,7 @@
         "ico":"n-button",
         "className":"w-dropdown-toggle",
         "name":"下拉菜单切换",
+        "en":"dropdown-toggle",
         "accept":""
     },
     {
@@ -357,6 +401,7 @@
         "ico":"n-icon",
         "className":"w-icon-dropdown-toggle",
         "name":"下拉切换图标",
+        "en":"icon-dropdown-toggle",
         "accept":""
     },
     {
@@ -365,6 +410,7 @@
         "ico":"",
         "className":"w-dropdown-list",
         "name":"下拉列表",
+        "en":"dropdown-list",
         "accept":""
     },
     {
@@ -373,6 +419,7 @@
         "ico":"",
         "className":"w-dropdown-link",
         "name":"下拉列表项",
+        "en":"dropdown-link",
         "accept":""
     },
     {
@@ -381,6 +428,7 @@
         "ico":"n-slider",
         "className":"w-slider",
         "name":"幻灯片",
+        "en":"slider",
         "accept":""
     },
     {
@@ -389,6 +437,7 @@
         "ico":"n-slider",
         "className":"w-slider-mask",
         "name":"遮罩",
+        "en":"slider-mask",
         "accept":""
     },
     {
@@ -397,6 +446,7 @@
         "ico":"n-slide",
         "className":"w-slide",
         "name":"幻灯片",
+        "en":"slide",
         "accept":""
     },
     {
@@ -405,6 +455,7 @@
         "ico":"n-link",
         "className":"w-slider-arrow-left",
         "name":"左箭头",
+        "en":"slider-arrow-left",
         "accept":""
     },
     {
@@ -413,6 +464,7 @@
         "ico":"n-icon",
         "className":"w-icon-slider-left",
         "name":"左箭头图标",
+        "en":"icon-slider-left",
         "accept":""
     },
     {
@@ -421,6 +473,7 @@
         "ico":"n-link",
         "className":"w-slider-arrow-right",
         "name":"右箭头",
+        "en":"slider-arrow-right",
         "accept":""
     },
     {
@@ -429,6 +482,7 @@
         "ico":"n-icon",
         "className":"w-icon-slider-right",
         "name":"右箭头图标",
+        "en":"icon-slider-right",
         "accept":""
     },
     {
@@ -437,6 +491,7 @@
         "ico":"n-link",
         "className":"w-slider-nav w-round",
         "name":"幻灯片导航",
+        "en":"slider-nav",
         "accept":""
     },
     {
@@ -445,6 +500,7 @@
         "ico":"",
         "className":"w-slider-dot",
         "name":"幻灯片圆点",
+        "en":"slider-dot",
         "accept":""
     },
     {
@@ -453,6 +509,7 @@
         "ico":"n-lightbox",
         "className":"w-inline-block w-lightbox",
         "name":"灯箱滑块",
+        "en":"lightbox",
         "accept":""
     },
     {
@@ -461,6 +518,7 @@
         "ico":"n-map",
         "className":"w-widget w-widget-map",
         "name":"地图",
+        "en":"map",
         "accept":""
     },
     {
@@ -469,6 +527,7 @@
         "ico":"n-backgroundvideo",
         "className":"w-backgroundvideo w-backgroundvideo-atom",
         "name":"背景视频",
+        "en":"backgroundvideo",
         "accept":""
     },
     {
@@ -477,6 +536,7 @@
         "ico":"",
         "className":"",
         "name":"内嵌网页",
+        "en":"embed",
         "accept":""
     }
 ]

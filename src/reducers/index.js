@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import ico from './ico';
 import right from './right';
+import Nodes from '../common/config/getNodeRelated.json';
 
 const indexInit={
     // noded:0,//是否已经选择了节点判断，加载完页面，默认不选中任何节点
@@ -15,18 +16,36 @@ const indexInit={
     bottomNodeHoveredIndex:0,//底部导航，鼠标放在哪个节点上面
 }
 
+
 //和框架内的页面相关的内容在此处设置
 const index=(state=indexInit,action)=>{
     switch(action.type){
         //更新网站数据
         case 'UPDATE_DISPLAY':
-        let data=state.siteData.data;
+        let data=state.siteData.data;//站点节点数据
         for(let i=0;i<data.length;i++){
             if(data[i].id===state.selectedId.thisid.id){
+                //复制站点数据
                 let newObj=Object.assign({},state,{
                     siteData:state.siteData
                 });
-                newObj.siteData.data[i].display=action.display;
+
+                let tid=data[i].tid;//节点类型
+                let NodeType=Nodes[tid].en;
+                let TypeCount=typeClassCount(data,state.selectedId.thisid.typeId);
+                //更新属性
+                let obj=newObj.siteData.data[i];
+                //创建类名,根据类型创建类名，该类型自动生成的class共有多少个，包含未引用的，取最大值+1
+                obj.classes=[{
+                    className:`${NodeType}${TypeCount!==1?'-'+TypeCount:''}`,
+                    createBy:0,//自动创建，1主动创建
+                    related:0,//关联类名
+                    used:1,//使用状态
+                    style:{
+                        display:getDisplay(action.displayIndex)
+                    }
+                }]
+                obj.display=action.displayIndex;//显示类型索引
                 return newObj;
             }
         }
@@ -106,7 +125,35 @@ const index=(state=indexInit,action)=>{
     }
 }
 
-
+function getDisplay(index){
+    let display='';
+    switch(index){
+        case 1: display='block';break;
+        case 2: display='inline-block';break;
+        case 3: display='inline';break;
+        case 4: display='flex';break;
+        case 5: display='none';break;
+        default: display='';
+    }
+    return display;
+}
+function typeClassCount(data,selectedTid){
+    let cssCount=1;
+    if(data instanceof Array){
+        data.map((evt,i)=>{
+            if(evt.tid===selectedTid){
+                if(evt.classes instanceof Array){
+                    evt.classes.map((evt2,i2)=>{
+                        if(evt2.createBy===0){
+                            cssCount+=1;
+                        }
+                    })
+                }
+            }
+        })
+    }
+    return cssCount;
+}
 const todoApp = combineReducers({
   ico,index,right
 })

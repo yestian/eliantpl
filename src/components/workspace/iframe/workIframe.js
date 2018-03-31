@@ -37,7 +37,6 @@ class WorkIframe extends Component{
         let iframe={
             height: '203px',display: 'inline',minHeight: '100%',maxHeight: '100%',border: 0,position: 'relative',overflow: 'hidden',transformStyle: 'preserve-3d',pointerEvents: 'auto'
         }
-        let ifm= $('#site-iframe-next').contents();
         let index=this.props.index;
         let datas=index.siteData;
         let {nodeMouseEnter,nodeMouseLeave}=this.props;
@@ -80,7 +79,7 @@ class WorkIframe extends Component{
                                 'data-id':evt.id,
                                 'data-type':evt.tid,
                                 key:Math.random(),
-                                className:`${Nodes[evt.tid].className}${typeof evt.empty==='undefined'?' wf-empty':''}${theClass}`,
+                                className:`${Nodes[evt.tid].className}${evt.empty?' wf-empty':''}${theClass}`,
                                 onMouseEnter:(e)=>{nodeMouseEnter(e,index.selectedId)},
                                 onMouseLeave:(e)=>{nodeMouseLeave(e,index.selectedId)},
                              },

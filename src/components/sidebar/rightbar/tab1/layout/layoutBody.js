@@ -12,11 +12,12 @@ class LayoutBody extends Component{
          let {displaySettingClick,layoutIcoMouseEnter,layoutIcoMouseLeave}=this.props;
          // let right=this.props.right;
          let index=this.props.index;
-         let selectedId=index.selectedId.thisid.id;
+
+         
          let ids=index.siteData.data;
          let selectedData='';
          for(let i=0;i<ids.length;i++){
-             if(ids[i].id===selectedId){
+             if(ids[i].id===index.selectedId.thisid.id){
                  selectedData=ids[i];
                  break;
              }

@@ -83,7 +83,49 @@ export function displaySettingClick(newIndex,oldIndex){
     return function(dispatch){
         //如果已经是选中状态，则返回
         if(newIndex===oldIndex){return false;}
-        dispatch({type:UPDATE_DISPLAY,display:newIndex});
+        //创建类名
+        dispatch({type:UPDATE_DISPLAY,displayIndex:newIndex});
         dispatch({type:DISPLAY_SETTING_CLICK});
     }
+}
+
+function createClass(){
+    //判断是否有classes,并且存在className
+    // if(不存在类){
+    //     提示全局类列表
+    // }else{
+    //     if(存在类，但没有使用){
+    //         顶级类删除就没有了
+    //         下级类只解除引用
+    //     }else if(使用了几个类){
+    //         样式添加到最后一个使用状态的关联类上面
+    //     }
+    // }
+    
+    // "classes":[
+    //     {
+    //         className:"aaa",
+    //         "related":0,
+    //         "used":1,
+    //         "style":{"font-size":"12px","color":"#fff","font-weight":"bold"}
+    //     },
+    //     {
+    //         className:"bbb",
+    //         "related":0,
+    //         "used":0,
+    //         "style":{"font-size":"12px","color":"#fff"}
+    //     },
+    //     {
+    //         className:"ccc",
+    //         "related":"aaa",
+    //         "used":1,
+    //         "style":{"font-size":"12px","color":"#fff"}
+    //     },
+    //     {
+    //         className:"dd",
+    //         "related":"ccc",
+    //         "used":1,
+    //         "style":{"font-size":"12px","color":"#fff"}
+    //     }
+    // ]
 }
