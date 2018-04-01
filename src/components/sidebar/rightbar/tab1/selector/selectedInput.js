@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import IsBindClass from './isBindClass';
-import MiniInspector from './selector/miniInspector';
+import MiniInspector from './miniInspector';
 
 class SelectedInput extends Component{
      render(){

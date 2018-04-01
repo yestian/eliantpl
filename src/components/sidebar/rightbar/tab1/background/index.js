@@ -6,7 +6,7 @@ import * as actionsCreators from '../../../../../actions/right';
 import Title from './title';
 import Body from './body';
 
-class Layout extends Component{
+class Typography extends Component{
      render(){
          let {cssLayoutTitle}=this.props;
          let right=this.props.right.layout;
@@ -21,4 +21,4 @@ class Layout extends Component{
 export default connect(
     state=>state,
     dispatch=>bindActionCreators(actionsCreators,dispatch)
-)(Layout);
+)(Typography);

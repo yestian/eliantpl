@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import Layout from './layout/layout';
+import Typography from './typography/index';
+import Background from './background/index';
+import Border from './border/index';
+import Shadows from './shadows/index';
+import Translate from './translate/index';
+import Effect from './effect/index';
 
 class StyleSetBox extends Component{
      render(){
@@ -8,12 +14,12 @@ class StyleSetBox extends Component{
                 <div className="kit-scroll-pane kit-section-group">
                     <div className="top-shadow"></div>
                     <Layout/>
-                    {/* <CssTypography/>
-                    <CssBackground/>
-                    <CssBorder/>
-                    <CssShadows/>
-                    <CssTranslate/>
-                    <CssEffect/> */}
+                    <Typography/>
+                    <Background/>
+                    <Border/>
+                    <Shadows/>
+                    <Translate/>
+                    <Effect/>
                 </div>
             </div>
         )

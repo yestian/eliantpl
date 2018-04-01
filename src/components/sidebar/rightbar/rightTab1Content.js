@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Nodes from '../../../common/config/getNodeRelated.json';
 
 import IsDummyTab1 from './tab1/isDummyTab1';
-import IsSelectedInput from './tab1/isSelectedInput';
+import IsSelectedInput from './tab1/selector/isSelectedInput';
 import Affecting from './tab1/affecting';
 
 class RightTab1Content extends Component{
