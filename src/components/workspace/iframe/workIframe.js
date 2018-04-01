@@ -19,10 +19,19 @@ class WorkIframe extends Component{
     }
     componentDidUpdate(){
         let ifm= $('#site-iframe-next').contents();
-        let datas=this.props.index.siteData;
-        let {siteId,pageId,bodyId}=datas;
-        ifm.find('html').addClass('site-scrollbar allow-drag-cursor wf-design-mode').attr({lang:'zh-CN',spellcheck:'true','data-site':siteId,'data-page':pageId});//html
-        ifm.find('body').attr({'data-id':bodyId,'data-type':0});
+
+        if(typeof this.props.index.siteData!=='undefined'){
+            let datas=this.props.index.siteData;
+            let {siteId,pageId,bodyId}=datas;
+            ifm.find('html').addClass('site-scrollbar allow-drag-cursor wf-design-mode').attr({lang:'zh-CN',spellcheck:'true','data-site':siteId,'data-page':pageId});//html
+            ifm.find('body').attr({'data-id':bodyId,'data-type':0});
+            if(this.props.right.layout.showSameTypeNodesLine){
+                ifm.find('html').addClass('wf-show-affected');
+            }else{
+                ifm.find('html').removeClass('wf-show-affected');
+            }
+        }
+
         //------------节点无关内容--------
         let org=this.props.ico.ico_event;
         //激活拖动
@@ -40,8 +49,24 @@ class WorkIframe extends Component{
         let index=this.props.index;
         let datas=index.siteData;
         let {nodeMouseEnter,nodeMouseLeave}=this.props;
+        let showSame=this.props.right.layout.showSameTypeNodesLine;//是否显示affect
+
          if(typeof datas!=='undefined'){
              let data=datas.data;
+             //判断当前节点是否有启用的class
+             let used=0;
+             data.map((evt3,i)=>{
+                 if(evt3.selected){
+                     if(typeof evt3.classes !=='undefined' && evt3.classes.length){
+                         let cls=evt3.classes;
+                         cls.map((evt4,i4)=>{
+                             if(evt4.used){
+                                 used=1;
+                             }
+                         })
+                     }
+                 }
+             })
              //-------------获取节点树-----------------
              function digui(data,pid=0){
                  let arr=[];
@@ -79,7 +104,7 @@ class WorkIframe extends Component{
                                 'data-id':evt.id,
                                 'data-type':evt.tid,
                                 key:Math.random(),
-                                className:`${Nodes[evt.tid].className}${evt.empty?' wf-empty':''}${theClass}`,
+                                className:`${Nodes[evt.tid].className}${evt.empty?' wf-empty':''}${theClass}${(showSame && evt.selected && used)?' wf-affected':''}`,
                                 onMouseEnter:(e)=>{nodeMouseEnter(e,index.selectedId)},
                                 onMouseLeave:(e)=>{nodeMouseLeave(e,index.selectedId)},
                              },

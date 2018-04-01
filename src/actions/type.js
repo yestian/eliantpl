@@ -40,6 +40,12 @@ const Type={
     DISPLAY_SETTING_HOVER:'DISPLAY_SETTING_HOVER',//右侧显示设置，鼠标悬浮事件
     DISPLAY_SETTING_CLICK:'DISPLAY_SETTING_CLICK',//右侧显示设置，鼠标点击事件
     UPDATE_DISPLAY:'UPDATE_DISPLAY',//选中节点的显示方式
+    TOGGLE_SAME_TYPE:'TOGGLE_SAME_TYPE',//显示同类型的元素提示线
+    SELECTOR_STATE:'SELECTOR_STATE',//类输入框的状态设置
+    SELECTOR_STATE_OPEN:'SELECTOR_STATE_OPEN',//展开搜索框的下拉菜单
+    NEED_CLASS:'NEED_CLASS',//输入框的点击，弹出下拉页面
+    SET_SUGGESTIONS:'SET_SUGGESTIONS',//设置建议的类
+    SUGGESTIONS_HOVER:'SUGGESTIONS_HOVER',//建议的类hover事件
 }
 
 export default Type;

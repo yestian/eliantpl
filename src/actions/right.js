@@ -1,6 +1,6 @@
 import Type from './type';
 import $ from 'jquery';
-const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY}=Type;
+const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER}=Type;
 
 let timer=null;
 
@@ -88,44 +88,30 @@ export function displaySettingClick(newIndex,oldIndex){
         dispatch({type:DISPLAY_SETTING_CLICK});
     }
 }
+//同类型的节点提示线是否显示
+export function toggleSameTypeNodesLine(){
+    return {type:TOGGLE_SAME_TYPE}
+}
 
-function createClass(){
-    //判断是否有classes,并且存在className
-    // if(不存在类){
-    //     提示全局类列表
-    // }else{
-    //     if(存在类，但没有使用){
-    //         顶级类删除就没有了
-    //         下级类只解除引用
-    //     }else if(使用了几个类){
-    //         样式添加到最后一个使用状态的关联类上面
-    //     }
-    // }
-    
-    // "classes":[
-    //     {
-    //         className:"aaa",
-    //         "related":0,
-    //         "used":1,
-    //         "style":{"font-size":"12px","color":"#fff","font-weight":"bold"}
-    //     },
-    //     {
-    //         className:"bbb",
-    //         "related":0,
-    //         "used":0,
-    //         "style":{"font-size":"12px","color":"#fff"}
-    //     },
-    //     {
-    //         className:"ccc",
-    //         "related":"aaa",
-    //         "used":1,
-    //         "style":{"font-size":"12px","color":"#fff"}
-    //     },
-    //     {
-    //         className:"dd",
-    //         "related":"ccc",
-    //         "used":1,
-    //         "style":{"font-size":"12px","color":"#fff"}
-    //     }
-    // ]
+//类输入框的状态设置
+export function selectorState(e,state){
+    e.preventDefault();
+    return {type:SELECTOR_STATE,state}
+}
+
+export function selectorStateOpen(){
+    return {type:SELECTOR_STATE_OPEN}
+}
+
+//点击输入框
+export function needClass(){
+    return {type:NEED_CLASS}
+}
+
+export function suggestionClick(e){
+    e.stopPropagation();
+    return {type:SET_SUGGESTIONS}
+}
+export function suggestionHover(index){
+    return {type:SUGGESTIONS_HOVER,suggestionIndex:index}
 }

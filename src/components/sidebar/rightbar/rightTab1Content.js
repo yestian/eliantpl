@@ -3,13 +3,13 @@ import Nodes from '../../../common/config/getNodeRelated.json';
 
 import IsDummyTab1 from './tab1/isDummyTab1';
 import IsSelectedInput from './tab1/isSelectedInput';
+import Affecting from './tab1/affecting';
 
 class RightTab1Content extends Component{
      render(){
          let data=this.props.data;
          let index=data.index;
 
-         let sameClassNum='无';
          let nodeTitle='没有选择';
          let nodeIco='n-div';
          if(typeof index.selectedId!=='undefined'){
@@ -32,7 +32,7 @@ class RightTab1Content extends Component{
                          {/* 根据是否选择了节点，变换不同的内容 */}
                         <IsSelectedInput data={data}/>
                          {/* 相同的目标元素个数 */}
-                        <a className="target-toggle affecting"><i className="icon-main common-target"></i><span>{sameClassNum}</span></a>
+                         <Affecting/>
                     </div>
                     <IsDummyTab1 data={data}/>
                  </div>
