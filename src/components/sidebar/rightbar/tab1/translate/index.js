@@ -8,11 +8,11 @@ import Body from './body';
 
 class Typography extends Component{
      render(){
-         let {cssLayoutTitle}=this.props;
+         let {translateTitle}=this.props;
          let right=this.props.right.layout;
          return(
-            <div className={`kit-section layout-section${right.openCssLayout?' open':''}${right.layoutAdvanced?' show-advanced':''}`}>
-                <Title onClick={cssLayoutTitle} data={right}/>
+            <div className={`kit-section transitions-section${right.translateOpen?' open':''}${right.translateAdv?' show-advanced':''}`}>
+                <Title onClick={translateTitle} data={right}/>
                 <Body/>
             </div>
         )

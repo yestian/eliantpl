@@ -12,9 +12,9 @@ class BottomNodesNav extends Component{
          let leftArrow=<svg width="7" height="28" viewBox="0 0 7 28" className="bem-Svg left notch" style={{display: 'block',transform: 'translate(0px, 0px)',color: 'rgb(235, 235, 235)'}}><path fill="currentColor" d="M6.5 14L.5 0H0v28h.5z"></path><path fill="#858585" d="M1 0H0l6 14-6 14h1l6-14z"></path></svg>;
          let rightArrow=<svg width="7" height="28" viewBox="0 0 7 28" className="bem-Svg right notch" style={{display: 'block',transform: 'translate(0px, 0px)',color: 'rgb(235, 235, 235)'}}><path fill="currentColor" d="M.5 0l6 14-6 14H7V0z"></path><path fill="#858585" d="M1 0H0l6 14-6 14h1l6-14z"></path></svg>;
          //循环得出所有节点树
-         let id=this.props.index.selectedId.thisid.id;
+         let id=this.props.index.sid;
          let node=$('#site-iframe-next').contents().find("[data-id="+id+"]");
-         let bodyId=$('#site-iframe-next').contents().find('body').attr('data-id');
+         let bodyId=data.siteData.bodyId;
              let nodeNav=[];
              let typeId=parseInt(node.attr('data-type'),10);
              while(typeId!==0){

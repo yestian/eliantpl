@@ -12,7 +12,7 @@ class RightTab1Content extends Component{
 
          let nodeTitle='没有选择';
          let nodeIco='n-div';
-         if(typeof index.selectedId!=='undefined'){
+         if(index.sid){
              let thisId=Nodes[index.selectedId.thisid.typeId];
              nodeTitle=thisId.name;
              nodeIco=thisId.ico;

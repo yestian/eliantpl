@@ -1,0 +1,11 @@
+import React,{Component} from "react";
+
+class RadiusIco extends Component{
+    render(){
+        return(
+            <div className="shortcuts icon-buttons"><div className="kit-button all active" title="All Corners"><svg width={13} height={13} viewBox="0 0 13 13" className="bem-Svg " style={{display: 'block', transform: 'translate(0px, 0px)'}}><path fill="currentColor" d="M3 8V7H1v1c0 2.206 1.794 4 4 4h1v-2H5c-1.1 0-2-.9-2-2zM1 5v1h2V5c0-1.1.9-2 2-2h1V1H5C2.794 1 1 2.794 1 5zm7-4H7v2h1c1.1 0 2 .9 2 2v1h2V5c0-2.206-1.794-4-4-4zm2 7c0 1.1-.9 2-2 2H7v2h1c2.206 0 4-1.794 4-4V7h-2v1z" /><path fill="currentColor" d="M8 4H5c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1z" opacity=".5" /></svg></div><div className="kit-button tl" title="Top Left"><svg width={13} height={13} viewBox="0 0 13 13" className="bem-Svg " style={{display: 'block', transform: 'translate(0px, 0px)'}}><path fill="currentColor" d="M3 9c0-3.3 2.7-6 6-6h3V1H9C4.59 1 1 4.59 1 9v3h2V9z" /><path fill="currentColor" d="M12 4H9C6.243 4 4 6.243 4 9v3h8V4z" opacity=".5" /></svg></div><div className="kit-button tr" title="Top Right"><svg width={13} height={13} viewBox="0 0 13 13" className="bem-Svg " style={{display: 'block', transform: 'translate(0px, 0px)'}}><path fill="currentColor" d="M4 3c3.3 0 6 2.7 6 6v3h2V9c0-4.41-3.59-8-8-8H1v2h3z" /><path fill="currentColor" d="M9 12V9c0-2.757-2.243-5-5-5H1v8h8z" opacity=".5" /></svg></div><div className="kit-button bl" title="Bottom Left"><svg width={13} height={13} viewBox="0 0 13 13" className="bem-Svg " style={{display: 'block', transform: 'translate(0px, 0px)'}}><path fill="currentColor" d="M9 10c-3.3 0-6-2.7-6-6V1H1v3c0 4.41 3.59 8 8 8h3v-2H9z" /><path fill="currentColor" d="M4 1v3c0 2.757 2.243 5 5 5h3V1H4z" opacity=".5" /></svg></div><div className="kit-button br" title="Bottom Right"><svg width={13} height={13} viewBox="0 0 13 13" className="bem-Svg " style={{display: 'block', transform: 'translate(0px, 0px)'}}><path fill="currentColor" d="M10 4c0 3.3-2.7 6-6 6H1v2h3c4.41 0 8-3.59 8-8V1h-2v3z" /><path fill="currentColor" d="M1 9h3c2.757 0 5-2.243 5-5V1H1v8z" opacity=".5" /></svg></div></div>
+
+        )
+    }
+}
+export default RadiusIco;

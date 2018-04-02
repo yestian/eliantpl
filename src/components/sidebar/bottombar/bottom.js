@@ -15,7 +15,7 @@ class Bottom extends Component{
             return <BottomRuler/>
          }else{
              //节点激活状态
-             if(typeof data.selectedId!=='undefined'){
+             if(data.sid){
                  return <BottomNodesNav/>;
              }else{
                  //default

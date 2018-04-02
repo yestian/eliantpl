@@ -8,11 +8,11 @@ import Body from './body';
 
 class Layout extends Component{
      render(){
-         let {cssLayoutTitle}=this.props;
+         let {layoutTitle}=this.props;
          let right=this.props.right.layout;
          return(
-            <div className={`kit-section layout-section${right.openCssLayout?' open':''}${right.layoutAdvanced?' show-advanced':''}`}>
-                <Title onClick={cssLayoutTitle} data={right}/>
+            <div className={`kit-section layout-section${right.layoutOpen?' open':''}${right.layoutAdv?' show-advanced':''}`}>
+                <Title onClick={layoutTitle} data={right}/>
                 <Body/>
             </div>
         )

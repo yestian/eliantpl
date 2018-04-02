@@ -1,8 +1,20 @@
 import { combineReducers } from 'redux';
 
 const layoutInit={
-    openCssLayout:!0,//布局模块是否展开
-    layoutAdvanced:!1,//布局高级选项是否显示
+    layoutOpen:!0,
+    layoutAdv:!1,
+    typographyOpen:!0,
+    typographyAdv:!1,
+    bgOpen:!0,
+    bgAdv:!1,
+    borderOpen:!0,
+    borderAdv:!1,
+    effectOpen:!0,
+    effectAdv:!1,
+    shadowsOpen:!0,
+    shadowsAdv:!1,
+    translateOpen:!0,
+    translateAdv:!1,
     showSameTypeNodesLine:!1,//同类节点的提示线边框是否显示
     selectorState:!1,//类输入框的状态，默认无
     slectorStateOpen:!1,//展开state下拉菜单
@@ -25,13 +37,82 @@ const layout=(state=layoutInit,action)=>{
         //css layout展开收缩
         case 'TOGGLE_CSSLAYOUT' :
         return Object.assign({},state,{
-            openCssLayout:!state.openCssLayout
+            layoutOpen:!state.layoutOpen
         });
         //是否显示layout高级选项
         case 'TOGGLE_LAYOUT_ADVANCED' :
         return Object.assign({},state,{
-            layoutAdvanced:!state.layoutAdvanced
+            layoutAdv:!state.layoutAdv
         });
+        //css layout展开收缩
+        case 'TOGGLE_TYPOGRAPHY' :
+        return Object.assign({},state,{
+            typographyOpen:!state.typographyOpen
+        });
+        //是否显示layout高级选项
+        case 'TOGGLE_TYPOGRAPHY_ADV' :
+        return Object.assign({},state,{
+            typographyAdv:!state.typographyAdv
+        });
+
+        //css layout展开收缩
+        case 'TOGGLE_BG' :
+        return Object.assign({},state,{
+            bgOpen:!state.bgOpen
+        });
+        //是否显示layout高级选项
+        case 'TOGGLE_BG_ADV' :
+        return Object.assign({},state,{
+            bgAdv:!state.bgAdv
+        });
+
+        //css layout展开收缩
+        case 'TOGGLE_BORDER' :
+        return Object.assign({},state,{
+            borderOpen:!state.borderOpen
+        });
+        //是否显示layout高级选项
+        case 'TOGGLE_BORDER_ADV' :
+        return Object.assign({},state,{
+            borderAdv:!state.borderAdv
+        });
+
+        //css layout展开收缩
+        case 'TOGGLE_EFFECT' :
+        return Object.assign({},state,{
+            effectOpen:!state.effectOpen
+        });
+        //是否显示layout高级选项
+        case 'TOGGLE_EFFECT_ADV' :
+        return Object.assign({},state,{
+            effectAdv:!state.effectAdv
+        });
+
+        //css layout展开收缩
+        case 'TOGGLE_SHADOWS' :
+        return Object.assign({},state,{
+            shadowsOpen:!state.shadowsOpen
+        });
+        //是否显示layout高级选项
+        case 'TOGGLE_SHADOWS_ADV' :
+        return Object.assign({},state,{
+            shadowsAdv:!state.shadowsAdv
+        });
+
+        //css layout展开收缩
+        case 'TOGGLE_TRANSLATE' :
+        return Object.assign({},state,{
+            translateOpen:!state.translateOpen
+        });
+        //是否显示layout高级选项
+        case 'TOGGLE_TRANSLATE_ADV' :
+        return Object.assign({},state,{
+            translateAdv:!state.translateAdv
+        });
+
+
+
+
         //是否显示同类元素
         case 'TOGGLE_SAME_TYPE' :
         return Object.assign({},state,{

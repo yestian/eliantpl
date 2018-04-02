@@ -10,12 +10,11 @@ import BodyStyle from './bodyStyle';
 class WorkIframe extends Component{
     componentDidMount(){
         this.props.loadSiteData();
-
         let {nodeClick,bodyMouseEnter,bodyMouseLeave}=this.props;
         let body=document.getElementById('site-iframe-next').contentDocument.getElementsByTagName('body')[0];
-        body.addEventListener('click',(e)=>{nodeClick(e)});
         body.addEventListener('mouseenter',(e)=>{bodyMouseEnter(e)});
         body.addEventListener('mouseleave',(e)=>{bodyMouseLeave(e)});
+        body.addEventListener('click',(e)=>{nodeClick(e)});
     }
     componentDidUpdate(){
         let ifm= $('#site-iframe-next').contents();
@@ -48,11 +47,16 @@ class WorkIframe extends Component{
         }
         let index=this.props.index;
         let datas=index.siteData;
-        let {nodeMouseEnter,nodeMouseLeave}=this.props;
+        let {nodeMouseEnter,nodeMouseLeave,nodeClick}=this.props;
         let showSame=this.props.right.layout.showSameTypeNodesLine;//是否显示affect
-
          if(typeof datas!=='undefined'){
-             let data=datas.data;
+             //---------------------------把对象转为数组-------------------
+             let data=[];
+             let orgin=datas.data;
+             for(let i in orgin){
+                 data.push(orgin[i]);
+             }
+
              //判断当前节点是否有启用的class
              let used=0;
              data.map((evt3,i)=>{
@@ -94,7 +98,7 @@ class WorkIframe extends Component{
                          digui_class(evt.classes);//获取联合类
 
                          if(!sons.length){
-                            sons=evt.txt;//第三个变量变为文本
+                            sons=evt.innerText;//第三个变量变为文本
                         }
 
                         //创建节点，并且把子节点拼装在一起
@@ -106,7 +110,7 @@ class WorkIframe extends Component{
                                 key:Math.random(),
                                 className:`${Nodes[evt.tid].className}${evt.empty?' wf-empty':''}${theClass}${(showSame && evt.selected && used)?' wf-affected':''}`,
                                 onMouseEnter:(e)=>{nodeMouseEnter(e,index.selectedId)},
-                                onMouseLeave:(e)=>{nodeMouseLeave(e,index.selectedId)},
+                                onMouseLeave:(e)=>{nodeMouseLeave(e,index.selectedId)}
                              },
                              sons));
                      }
@@ -144,12 +148,14 @@ class WorkIframe extends Component{
              return(
                  <div id="site-iframe-next-container">
                      <iframe id="site-iframe-next" title="workspaceIframe" name="workframe" style={{...iframe,...this.props.size,height:this.props.iframeH}}></iframe>
+
                      <BodyDOMs>{digui(data)}</BodyDOMs>
                      <BodyStyle><meta charSet="utf-8"/>
                          <title>设计</title>
                          <meta name="viewport" content="width=device-width, initial-scale=1"/>
                          <link rel="stylesheet" type="text/css" href="http://chuankukeji.com/normalize.css"/>
                          <link rel="stylesheet" type="text/css" href="http://chuankukeji.com/designer.css"/>
+                         {/*<style type="text/css">{styles(data)}</style>*/}
                          <style type="text/css">{styles(data)}</style>
                      </BodyStyle>
                  </div>

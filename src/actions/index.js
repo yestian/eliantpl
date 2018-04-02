@@ -67,7 +67,8 @@ export function loadSiteData(){
             type:'post',
             async:false,
             success:(data)=>{
-                data=eval('('+data+')');
+                // data=eval('('+data+')');
+                data=JSON.parse(data);
                 dispatch({type:LOAD_SITE_DATA,siteData:data});
             }
         })
@@ -75,49 +76,47 @@ export function loadSiteData(){
 }
 
 //点击节点
-export function nodeClick(e,selectedId){
+export function nodeClick(e){
     e.stopPropagation();//阻止冒泡
     e.preventDefault();//阻止默认行为
     return function(dispatch){
         let $e=$(e.target);
-        let id=parseInt($e.attr('data-id'),10);
-        //再次点击，不发送数据
-        if(typeof selectedId!=='undefined'){
-            if(id===selectedId.thisid.id){
-                return false;
-            }
-        }
-        //当前节点
+        let sid=parseInt($e.attr('data-id'),10);
         let data={
-            thisid:{
-                id:id,
-                typeId:parseInt($e.attr('data-type'),10)
-            }
-        }
+            inside:0,
+            hangdown:0,
+            sid:sid
+        };
         if($e.offset().top<50){
-            if(parseInt($e.attr('data-type'),10)===0){
-                data.inside=1;
-            }else{
-                data.hangdown=1;
-            }
-        }
-            //父节点
-            let parentId=$e.parent();
-            if(typeof parentId.attr('data-id')!=='undefined'){
-                data.pid={
-                    id:parentId.attr('data-id'),
-                    typeId:parseInt(parentId.attr('data-type'),10)
-                }
-            }
-            //爹爹节点
-            if(typeof parentId.parent().attr('data-id')!=='undefined'){
-                data.ppid={
-                    id:parentId.parent().attr('data-id'),
-                    typeId:parseInt(parentId.parent().attr('data-type'),10)
-                }
-            }
-
+           if($e.is('body')){
+               data.inside=1;
+           }else{
+               data.hangdown=1;
+           }
+       }
         dispatch({type: NODE_CLICK,data});
+    }
+}
+export function bottomNodesNavClick(e,id,index){
+    e.stopPropagation();
+    e.preventDefault();
+    return function(dispatch){
+        if(index===0){return false;}
+        let data={
+            inside:0,
+            hangdown:0,
+            sid:id
+        };
+        let ifm=$('#site-iframe-next').contents();
+        let node=ifm.find("[data-id="+id+"]");
+        if(node.offset().top<50){
+           if(node.is('body')){
+               data.inside=1;
+           }else{
+               data.hangdown=1;
+           }
+       }
+        dispatch({type:BOTTOM_NAV_CLICK,data});
     }
 }
 /**
@@ -129,48 +128,32 @@ export function nodeClick(e,selectedId){
  * @return {[type]}        [description]
  */
 export function nodeHelperClick(length,index,id){
-    /* nodeHelperClick(),第一个参数数组长度，第二个参数当前索引，第三个参数当前节点的ID，第四个参数当前节点typeid */
+    /* nodeHelperClick(),第一个参数数组长度，第二个参数当前索引，第三个参数当前节点的ID*/
     return function(dispatch){
         if(index!==length-1){
             //如果不是最后一个节点，点击重新选中节点
             //否则只更新展开状态
             //当前节点
             if(length>=2){
-                let ifm=$('#site-iframe-next').contents();
-                let $e=ifm.find("[data-id="+id+"]");
+                //length===1,说明没有上级节点
                 let data={
-                    thisid:{
-                        id:id,
-                        typeId:parseInt($e.attr('data-type'),10)
-                    }
-                }
-                if($e.offset().top<50){
-                    if(parseInt($e.attr('data-type'),10)===0){
-                        data.inside=1;
-                    }else{
-                        data.hangdown=1;
-                    }
-                }
-                //父节点
-                let parentId=$e.parent();
-                if(typeof parentId.attr('data-id')!=='undefined'){
-                    data.pid={
-                        id:parentId.attr('data-id'),
-                        typeId:parseInt(parentId.attr('data-type'),10)
-                    }
-                }
-                //爹爹节点
-                if(typeof parentId.parent().attr('data-id')!=='undefined'){
-                    data.ppid={
-                        id:parentId.parent().attr('data-id'),
-                        typeId:parseInt(parentId.parent().attr('data-type'),10)
-                    }
-                }
+                    inside:0,
+                    hangdown:0,
+                    sid:id
+                };
+                let ifm=$('#site-iframe-next').contents();
+                let node=ifm.find("[data-id="+id+"]");
+                if(node.offset().top<50){
+                   if(node.is('body')){
+                       data.inside=1;
+                   }else{
+                       data.hangdown=1;
+                   }
+               }
                 dispatch({type: NODE_HELPER_CLICK,data});
             }
-
         }
-        dispatch({ type: NODE_HELPER_EXPAND});//切换展开状态
+        dispatch({ type: NODE_HELPER_EXPAND});//切换展开状态,只要点了任意一处都执行
     }
 }
 //鼠标进入一个元素
@@ -289,43 +272,4 @@ export function bottomNodesNavMouseEnter(indexId){
 }
 export function bottomNodesNavMouseLeave(){
     return {type:BOTTOM_NAV_HOVER,bottomNodeHoveredIndex:0};
-}
-export function bottomNodesNavClick(e,id,index){
-    e.stopPropagation();
-    e.preventDefault();
-    return function(dispatch){
-        if(index===0){return false;}
-
-        let ifm=$('#site-iframe-next').contents();
-        let $e=ifm.find("[data-id="+id+"]");
-        let data={
-            thisid:{
-                id:id,
-                typeId:parseInt($e.attr('data-type'),10)
-            }
-        }
-        if($e.offset().top<50){
-            if(parseInt($e.attr('data-type'),10)===0){
-                data.inside=1;
-            }else{
-                data.hangdown=1;
-            }
-        }
-        //父节点
-        let parentId=$e.parent();
-        if(typeof parentId.attr('data-id')!=='undefined'){
-            data.pid={
-                id:parentId.attr('data-id'),
-                typeId:parseInt(parentId.attr('data-type'),10)
-            }
-        }
-        //爹爹节点
-        if(typeof parentId.parent().attr('data-id')!=='undefined'){
-            data.ppid={
-                id:parentId.parent().attr('data-id'),
-                typeId:parseInt(parentId.parent().attr('data-type'),10)
-            }
-        }
-        dispatch({type:BOTTOM_NAV_CLICK,data});
-    }
 }

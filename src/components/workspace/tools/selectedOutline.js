@@ -13,40 +13,43 @@ import $ from 'jquery';
 
 class SelectedOutline extends Component{
     componentDidUpdate(){
-        let data=this.props.index.selectedId;
-         if(typeof data!=='undefined'){
-             data=data.thisid;
+        let id=this.props.index.sid;
              let ifm=$('#site-iframe-next').contents();
-             let node=ifm.find("[data-id="+data.id+"]");
-             //当前节点的坐标
-             let width=node.outerWidth();
-             let left=node.offset().left;
-             let top=node.offset().top;
-             let height=node.outerHeight();
-             $('#selectedNode').css({left:left,width:width,top:top,height:height});
-         }
-
+             let node=ifm.find("[data-id="+id+"]");
+             if(node.length){
+                 //当前节点的坐标
+                 let width=node.outerWidth();
+                 let left=node.offset().left;
+                 let top=node.offset().top;
+                 let height=node.outerHeight();
+                 $('#selectedNode').css({left:left,width:width,top:top,height:height});
+             }
     }
      render(){
          let index=this.props.index;
-         let data=index.selectedId;
-         if(typeof data!=='undefined'){
+         let id=index.sid;
+         let tid=0;//默认就是body的节点类型
+         //根据ID获取对应的名称和图标
+         //第一步：获取tid
+         if(typeof index.siteData!=='undefined'){
              let arr=[];
-             arr.unshift({id:data.thisid.id,name:Nodes[data.thisid.typeId].name,ico:Nodes[data.thisid.typeId].ico});
-             //父节点
-             if(typeof data.pid!=='undefined'){
-                arr.unshift({id:data.pid.id,name:Nodes[data.pid.typeId].name,ico:Nodes[data.pid.typeId].ico});
+             let data=index.siteData.data;
+             //如果不存在就是body节点,body不在data中
+             function setArr(id){
+                if(typeof data[id]!=='undefined'){//不是body节点
+                    tid=data[id].tid;
+                    arr.unshift({id:id,name:Nodes[tid].name,ico:Nodes[tid].ico});
+                    setArr(data[id]);
+                }else{
+                    tid=0;
+                    id=index.siteData.bodyId;
+                    arr.unshift({id:id,name:Nodes[tid].name,ico:Nodes[tid].ico});
+                }
              }
-             //爹爹节点
-             if(typeof data.ppid!=='undefined'){
-                arr.unshift({id:data.ppid.id,name:Nodes[data.ppid.typeId].name,ico:Nodes[data.ppid.typeId].ico});
-             }
+             setArr(id);//执行函数
              return(
                 <div id="selectedNode" className={
-                    `bem-OutlineSelectedNode selected-outline wf-outline active
-                    ${index.nodeHelperExpand?' expanded':''}
-                    ${(typeof data.hangdown!=='undefined')?' hang-down':''}
-                    ${(typeof data.inside!=='undefined')?' inside':''}`}>
+                    `bem-OutlineSelectedNode selected-outline wf-outline active${index.nodeHelperExpand?' expanded':''}${index.hangdown?' hang-down':''}${index.inside?' inside':''}`}>
                     <div className="breadcrumbs">
                         <div className="inner">
                             <div className="crumbs clearfix" title="点击查看更多">

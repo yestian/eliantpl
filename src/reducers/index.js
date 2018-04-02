@@ -14,6 +14,9 @@ const indexInit={
     pleft:0,ptop:0,pheight:0,pwidth:0,//父节点尺寸
     nodeHelperExpand:0,//是否展开节点
     bottomNodeHoveredIndex:0,//底部导航，鼠标放在哪个节点上面
+    sid:0,//选中的节点ID
+    inside:0,//图标显示在节点内部
+    hangdown:0,//图标显示在节点下面
 }
 
 
@@ -21,60 +24,60 @@ const indexInit={
 const index=(state=indexInit,action)=>{
     switch(action.type){
         //更新网站数据
-        case 'UPDATE_DISPLAY':
-        //复制站点数据
-        let updateDisplay=Object.assign({},state,{
-            siteData:state.siteData,//整个网站数据
-        });
-        //更新数据
-        let updateDisplayData=updateDisplay.siteData.data;//复制的节点列表数据
-        if(updateDisplayData.length){
-            updateDisplayData.map((evt,i)=>{//所有节点
-                if(evt.selected){ //选中的节点
-                    evt.display=action.displayIndex;//display属性
-                    if(evt.classes instanceof Array){
-                        //递归
-                        let updateDisplayClassIndex='';
-                        function getClsList(arr,related=0){
-                            arr.map((evt2,i2)=>{
-                                //有且只有一个是used=1而且related=0
-                                if(evt2.related===related && evt2.used){//顶级
-                                    updateDisplayClassIndex=i2;
-                                    getClsList(arr,evt2.className);
-                                }
-                            });
-                            return updateDisplayClassIndex;
-                        }
-                        updateDisplayClassIndex=getClsList(evt.classes);
-                        //如果有绑定的类，修改绑定的类，修改最后一个关联类的display属性
-                        if(updateDisplayClassIndex===''){
-                            //如果没有绑定的类，需要创建新的类，并设置display属性
-                            (evt.classes).push({
-                                className:createClass(updateDisplayData,evt.tid).className,
-                                used:1,
-                                nodeName:createClass(updateDisplayData,evt.tid).nodeName,
-                                related:0,
-                                style:{display:getDisplay(action.displayIndex)}
-                            });
-
-                        }else{
-                            //有类，也已经绑定，只需修改属性
-                            (evt.classes)[updateDisplayClassIndex].style.display=getDisplay(action.displayIndex);
-                        }
-                    }else{
-                        //不存在任何类
-                        evt.classes=[{
-                            className:createClass(updateDisplayData,evt.tid).className,
-                            used:1,
-                            nodeName:createClass(updateDisplayData,evt.tid).nodeName,
-                            related:0,
-                            style:{display:getDisplay(action.displayIndex)}
-                        }]
-                    }
-                }
-            })
-        }
-        return updateDisplay;
+        // case 'UPDATE_DISPLAY':
+        // //复制站点数据
+        // let updateDisplay=Object.assign({},state,{
+        //     siteData:state.siteData,//整个网站数据
+        // });
+        // //更新数据
+        // let updateDisplayData=updateDisplay.siteData.data;//复制的节点列表数据
+        // if(updateDisplayData.length){
+        //     updateDisplayData.map((evt,i)=>{//所有节点
+        //         if(evt.selected){ //选中的节点
+        //             evt.display=action.displayIndex;//display属性
+        //             if(evt.classes instanceof Array){
+        //                 //递归
+        //                 let updateDisplayClassIndex='';
+        //                 function getClsList(arr,related=0){
+        //                     arr.map((evt2,i2)=>{
+        //                         //有且只有一个是used=1而且related=0
+        //                         if(evt2.related===related && evt2.used){//顶级
+        //                             updateDisplayClassIndex=i2;
+        //                             getClsList(arr,evt2.className);
+        //                         }
+        //                     });
+        //                     return updateDisplayClassIndex;
+        //                 }
+        //                 updateDisplayClassIndex=getClsList(evt.classes);
+        //                 //如果有绑定的类，修改绑定的类，修改最后一个关联类的display属性
+        //                 if(updateDisplayClassIndex===''){
+        //                     //如果没有绑定的类，需要创建新的类，并设置display属性
+        //                     (evt.classes).push({
+        //                         className:createClass(updateDisplayData,evt.tid).className,
+        //                         used:1,
+        //                         nodeName:createClass(updateDisplayData,evt.tid).nodeName,
+        //                         related:0,
+        //                         style:{display:getDisplay(action.displayIndex)}
+        //                     });
+        //
+        //                 }else{
+        //                     //有类，也已经绑定，只需修改属性
+        //                     (evt.classes)[updateDisplayClassIndex].style.display=getDisplay(action.displayIndex);
+        //                 }
+        //             }else{
+        //                 //不存在任何类
+        //                 evt.classes=[{
+        //                     className:createClass(updateDisplayData,evt.tid).className,
+        //                     used:1,
+        //                     nodeName:createClass(updateDisplayData,evt.tid).nodeName,
+        //                     related:0,
+        //                     style:{display:getDisplay(action.displayIndex)}
+        //                 }]
+        //             }
+        //         }
+        //     })
+        // }
+        // return updateDisplay;
         //底部导航栏，鼠标在哪个节点上面
         case 'BOTTOM_NAV_HOVER':
         return Object.assign({},state,{
@@ -93,54 +96,36 @@ const index=(state=indexInit,action)=>{
         //点击选中节点
         case 'NODE_CLICK':
         let nodeClick=Object.assign({},state,{
-            selectedId:action.data,
-            nodeHelperExpand:0,
+            ...action.data,
+            nodeHelperExpand:0,//关闭助手弹出的菜单
             hoveredId:{},
             siteData:state.siteData
-        });
-        //修改sitedata数据
-        let nodeClickData=nodeClick.siteData.data;
-        nodeClickData.map((evt,i)=>{
-            if(action.data.thisid.id===evt.id){
-                evt.selected=1;
-            }else{
-                evt.selected=0;
-            }
         });
         return nodeClick;
 
         //点击辅助工具上的菜单，选中节点
         case 'NODE_HELPER_CLICK':
         let nodeHelperClick=Object.assign({},state,{
-            selectedId:action.data,
+            ...action.data,
             hoveredId:{},
             siteData:state.siteData
-        });
-        //修改sitedata数据
-        let nodeHelperClickData=nodeHelperClick.siteData.data;
-        nodeHelperClickData.map((evt,i)=>{
-            if(action.data.thisid.id===evt.id){
-                evt.selected=1;
-            }else{
-                evt.selected=0;
-            }
         });
         return nodeHelperClick;
         //点击底部导航上的节点
         case 'BOTTOM_NAV_CLICK':
         let bottomNavClick=Object.assign({},state,{
-            selectedId:action.data,
+            ...action.data,
             hoveredId:{},
             siteData:state.siteData
         });
-        let bottomNavClickData=bottomNavClick.siteData.data;
-        bottomNavClickData.map((evt,i)=>{
-            if(action.data.thisid.id===evt.id){
-                evt.selected=1;
-            }else{
-                evt.selected=0;
-            }
-        });
+        // let bottomNavClickData=bottomNavClick.siteData.data;
+        // bottomNavClickData.map((evt,i)=>{
+        //     if(action.data.thisid.id===evt.id){
+        //         evt.selected=1;
+        //     }else{
+        //         evt.selected=0;
+        //     }
+        // });
         return bottomNavClick;
         //hover选中节点
         case 'NODE_MOUSEENTER':

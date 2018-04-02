@@ -1,14 +1,18 @@
 import Type from './type';
 import $ from 'jquery';
-const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER}=Type;
+const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_BG_ADV,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_BORDER_ADV,TOGGLE_EFFECT,TOGGLE_EFFECT_ADV,TOGGLE_SHADOWS,TOGGLE_SHADOWS_ADV,TOGGLE_TRANSLATE,TOGGLE_TRANSLATE_ADV}=Type;
+
+
+
+
+
 
 let timer=null;
-
 /**
  * 切换是否打开css lyaout布局样式
  * @return {[type]} [description]
  */
-export function cssLayoutTitle(e){
+export function layoutTitle(e){
     e.stopPropagation();//阻止冒泡
     return function(dispatch){
         if($(e.currentTarget).is('.advanced')){
@@ -18,7 +22,66 @@ export function cssLayoutTitle(e){
         }
     }
 }
-
+export function tPTitle(e){
+    e.stopPropagation();//阻止冒泡
+    return function(dispatch){
+        if($(e.currentTarget).is('.advanced')){
+            dispatch({type: TOGGLE_TYPOGRAPHY_ADV});
+        }else{
+            dispatch({type: TOGGLE_TYPOGRAPHY});
+        }
+    }
+}
+export function bgTitle(e){
+    e.stopPropagation();//阻止冒泡
+    return function(dispatch){
+        if($(e.currentTarget).is('.advanced')){
+            dispatch({type: TOGGLE_BG_ADV});
+        }else{
+            dispatch({type: TOGGLE_BG});
+        }
+    }
+}
+export function borderTitle(e){
+    e.stopPropagation();//阻止冒泡
+    return function(dispatch){
+        if($(e.currentTarget).is('.advanced')){
+            dispatch({type: TOGGLE_BORDER_ADV});
+        }else{
+            dispatch({type: TOGGLE_BORDER});
+        }
+    }
+}
+export function effectTitle(e){
+    e.stopPropagation();//阻止冒泡
+    return function(dispatch){
+        if($(e.currentTarget).is('.advanced')){
+            dispatch({type: TOGGLE_EFFECT_ADV});
+        }else{
+            dispatch({type: TOGGLE_EFFECT});
+        }
+    }
+}
+export function shadowsTitle(e){
+    e.stopPropagation();//阻止冒泡
+    return function(dispatch){
+        if($(e.currentTarget).is('.advanced')){
+            dispatch({type: TOGGLE_SHADOWS_ADV});
+        }else{
+            dispatch({type: TOGGLE_SHADOWS});
+        }
+    }
+}
+export function translateTitle(e){
+    e.stopPropagation();//阻止冒泡
+    return function(dispatch){
+        if($(e.currentTarget).is('.advanced')){
+            dispatch({type: TOGGLE_TRANSLATE_ADV});
+        }else{
+            dispatch({type: TOGGLE_TRANSLATE});
+        }
+    }
+}
 export function layoutIcoMouseEnter(e,index){
     let tiptext='',
     //大的
