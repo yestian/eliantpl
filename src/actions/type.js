@@ -58,6 +58,8 @@ const Type={
     NEED_CLASS:'NEED_CLASS',//输入框的点击，弹出下拉页面
     SET_SUGGESTIONS:'SET_SUGGESTIONS',//设置建议的类
     SUGGESTIONS_HOVER:'SUGGESTIONS_HOVER',//建议的类hover事件
+    SHOW_NODE_MARGIN:'SHOW_NODE_MARGIN',
+    SHOW_NODE_PADDING:'SHOW_NODE_PADDING',
 }
 
 export default Type;

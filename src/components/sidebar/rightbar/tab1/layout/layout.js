@@ -12,7 +12,7 @@ class Layout extends Component{
          let right=this.props.right.layout;
          return(
             <div className={`kit-section layout-section${right.layoutOpen?' open':''}${right.layoutAdv?' show-advanced':''}`}>
-                <Title onClick={layoutTitle} data={right}/>
+                <Title onClick={layoutTitle} data={this.props.index}/>
                 <Body/>
             </div>
         )

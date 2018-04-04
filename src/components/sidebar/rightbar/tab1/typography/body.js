@@ -15,6 +15,7 @@ import ColumnCount from './columnCount';
 
 class Body extends Component{
     render(){
+        let adv=this.props.data.typographyAdv;
         return(
             <div className="kit-section-body">
                 <div className="transition-parent kit-panel">
@@ -24,21 +25,21 @@ class Body extends Component{
                     <FontColor/>
                     <FontSize/>
                     <LineHeight/>
-                    <div className="transition-child line clearfix">
+                    {adv?<div className="transition-child line clearfix">
                         <LetterSpacing/>
                         <TextIndent/>
-                    </div>
-                    <div className="transition-child kit-divider"></div>
+                    </div>:''}
+                    {adv?<div className="transition-child kit-divider"></div>:''}
                     <div className="line clearfix">
                         <TextAlign/>
                         <TextDecoration/>
                     </div>
-                    <div className="transition-child line clearfix">
+                    {adv?<div className="transition-child line clearfix">
                         <TextTransform/>
                         <TextDirection/>
-                    </div>
-                    <div className="transition-child kit-divider"></div>
-                    <ColumnCount/>
+                    </div>:''}
+                    {adv?<div className="transition-child kit-divider"></div>:''}
+                    {adv?<ColumnCount/>:''}
                 </div>
             </div>
         )

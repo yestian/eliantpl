@@ -6,20 +6,17 @@ const layoutInit={
     typographyOpen:!0,
     typographyAdv:!1,
     bgOpen:!0,
-    bgAdv:!1,
     borderOpen:!0,
-    borderAdv:!1,
     effectOpen:!0,
-    effectAdv:!1,
     shadowsOpen:!0,
-    shadowsAdv:!1,
     translateOpen:!0,
-    translateAdv:!1,
     showSameTypeNodesLine:!1,//同类节点的提示线边框是否显示
-    selectorState:!1,//类输入框的状态，默认无
+    selectorState:0,//类输入框的状态，默认无0,1,2,3
     slectorStateOpen:!1,//展开state下拉菜单
     needClass:!1,//输入框点击，弹出下拉页面
     suggestionIndex:0,//建议的类列表，是否激活
+    showNodeMargin:0,//是否显示节点margin的辅助网格
+    showNodePadding:0,//是否显示节点margin的辅助网格
 }
 //布局模块
 const layout=(state=layoutInit,action)=>{
@@ -28,6 +25,18 @@ const layout=(state=layoutInit,action)=>{
         case 'DISPLAY_SETTING_CLICK' :
         return Object.assign({},state,{
             displaySettingTip:{}
+        });
+        case 'NODE_CLICK' :
+        return Object.assign({},state,{
+            selectorState:0
+        });
+        case 'NODE_HELPER_CLICK' :
+        return Object.assign({},state,{
+            selectorState:0
+        });
+        case 'BOTTOM_NAV_CLICK' :
+        return Object.assign({},state,{
+            selectorState:0
         });
         //css layout显示设置，鼠标hover提示文字
         case 'DISPLAY_SETTING_HOVER' :
@@ -60,54 +69,32 @@ const layout=(state=layoutInit,action)=>{
         return Object.assign({},state,{
             bgOpen:!state.bgOpen
         });
-        //是否显示layout高级选项
-        case 'TOGGLE_BG_ADV' :
-        return Object.assign({},state,{
-            bgAdv:!state.bgAdv
-        });
 
         //css layout展开收缩
         case 'TOGGLE_BORDER' :
         return Object.assign({},state,{
             borderOpen:!state.borderOpen
         });
-        //是否显示layout高级选项
-        case 'TOGGLE_BORDER_ADV' :
-        return Object.assign({},state,{
-            borderAdv:!state.borderAdv
-        });
+
 
         //css layout展开收缩
         case 'TOGGLE_EFFECT' :
         return Object.assign({},state,{
             effectOpen:!state.effectOpen
         });
-        //是否显示layout高级选项
-        case 'TOGGLE_EFFECT_ADV' :
-        return Object.assign({},state,{
-            effectAdv:!state.effectAdv
-        });
+
 
         //css layout展开收缩
         case 'TOGGLE_SHADOWS' :
         return Object.assign({},state,{
             shadowsOpen:!state.shadowsOpen
         });
-        //是否显示layout高级选项
-        case 'TOGGLE_SHADOWS_ADV' :
-        return Object.assign({},state,{
-            shadowsAdv:!state.shadowsAdv
-        });
+
 
         //css layout展开收缩
         case 'TOGGLE_TRANSLATE' :
         return Object.assign({},state,{
             translateOpen:!state.translateOpen
-        });
-        //是否显示layout高级选项
-        case 'TOGGLE_TRANSLATE_ADV' :
-        return Object.assign({},state,{
-            translateAdv:!state.translateAdv
         });
 
 
@@ -143,6 +130,14 @@ const layout=(state=layoutInit,action)=>{
         case 'SET_SUGGESTIONS' :
         return Object.assign({},state,{
             needClass:!state.needClass
+        });
+        case 'SHOW_NODE_MARGIN' :
+        return Object.assign({},state,{
+            showNodeMargin:action.data
+        });
+        case 'SHOW_NODE_PADDING' :
+        return Object.assign({},state,{
+            showNodePadding:action.data
         });
         default:
         return state;

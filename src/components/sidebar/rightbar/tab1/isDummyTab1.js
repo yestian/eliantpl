@@ -4,7 +4,7 @@ import StyleSetBox from './styleSetBox';
 
 class IsDummyTab1 extends Component{
     render(){
-        if(typeof this.props.data.index.selectedId!=='undefined'){
+        if(this.props.data.index.sid){
             return <StyleSetBox/>
         }else{
             return <RightSelectorDummy/>

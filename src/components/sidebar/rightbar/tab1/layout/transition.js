@@ -12,22 +12,23 @@ import Position from './transition/position';
 
 class Transition extends Component{
      render(){
+         let adv=this.props.data.layout.layoutAdv;
          return(
             <div className="transition-parent kit-panel">
                 <Width/>
                 <Height/>
-                <MinWidth/>
-                <MinHeight/>
-                <MaxWidth/>
-                <MaxHeight/>
-                <div className="transition-child clearfix" />
-                <div className="transition-child kit-divider-small" />
+                {adv?<MinWidth/>:''}
+                {adv?<MinHeight/>:''}
+                {adv?<MaxWidth/>:''}
+                {adv?<MaxHeight/>:''}
+                {adv?<div className="transition-child clearfix" />:''}
+                {adv?<div className="transition-child kit-divider-small" />:''}
                 <Float/>
-                <Clear/>
-                <div className="transition-child kit-divider-small" />
-                <OverFlow/>
-                <div className="transition-child kit-divider-small" />
-                <Position/>
+                {adv?<Clear/>:''}
+                {adv?<div className="transition-child kit-divider-small" />:''}
+                {adv?<OverFlow/>:''}
+                {adv?<div className="transition-child kit-divider-small" />:''}
+                {adv?<Position/>:''}
             </div>
         )
     }

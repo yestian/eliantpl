@@ -23,61 +23,59 @@ const indexInit={
 //和框架内的页面相关的内容在此处设置
 const index=(state=indexInit,action)=>{
     switch(action.type){
-        //更新网站数据
-        // case 'UPDATE_DISPLAY':
-        // //复制站点数据
-        // let updateDisplay=Object.assign({},state,{
-        //     siteData:state.siteData,//整个网站数据
-        // });
-        // //更新数据
-        // let updateDisplayData=updateDisplay.siteData.data;//复制的节点列表数据
-        // if(updateDisplayData.length){
-        //     updateDisplayData.map((evt,i)=>{//所有节点
-        //         if(evt.selected){ //选中的节点
-        //             evt.display=action.displayIndex;//display属性
-        //             if(evt.classes instanceof Array){
-        //                 //递归
-        //                 let updateDisplayClassIndex='';
-        //                 function getClsList(arr,related=0){
-        //                     arr.map((evt2,i2)=>{
-        //                         //有且只有一个是used=1而且related=0
-        //                         if(evt2.related===related && evt2.used){//顶级
-        //                             updateDisplayClassIndex=i2;
-        //                             getClsList(arr,evt2.className);
-        //                         }
-        //                     });
-        //                     return updateDisplayClassIndex;
-        //                 }
-        //                 updateDisplayClassIndex=getClsList(evt.classes);
-        //                 //如果有绑定的类，修改绑定的类，修改最后一个关联类的display属性
-        //                 if(updateDisplayClassIndex===''){
-        //                     //如果没有绑定的类，需要创建新的类，并设置display属性
-        //                     (evt.classes).push({
-        //                         className:createClass(updateDisplayData,evt.tid).className,
-        //                         used:1,
-        //                         nodeName:createClass(updateDisplayData,evt.tid).nodeName,
-        //                         related:0,
-        //                         style:{display:getDisplay(action.displayIndex)}
-        //                     });
-        //
-        //                 }else{
-        //                     //有类，也已经绑定，只需修改属性
-        //                     (evt.classes)[updateDisplayClassIndex].style.display=getDisplay(action.displayIndex);
-        //                 }
-        //             }else{
-        //                 //不存在任何类
-        //                 evt.classes=[{
-        //                     className:createClass(updateDisplayData,evt.tid).className,
-        //                     used:1,
-        //                     nodeName:createClass(updateDisplayData,evt.tid).nodeName,
-        //                     related:0,
-        //                     style:{display:getDisplay(action.displayIndex)}
-        //                 }]
-        //             }
-        //         }
-        //     })
-        // }
-        // return updateDisplay;
+        case 'UPDATE_DISPLAY':
+        //复制站点数据
+        let updateDisplay=Object.assign({},state,{
+            siteData:state.siteData,//整个网站数据
+        });
+        //更新数据
+        (function(){
+            let allData=updateDisplay.siteData.data;
+            let data=allData[state.sid];
+            data.display=action.displayIndex;//设置display属性
+
+            if(data.classes instanceof Array){
+                //----------------
+                let clsIndex='';//需要修改哪一个class的display属性
+                function getClsList(classes,related=0){
+                    classes.map((evt2,i2)=>{
+                        //有且只有一个是used=1而且related=0
+                        if(evt2.related===related && evt2.used){//顶级
+                            clsIndex=i2;
+                            getClsList(classes,evt2.className);
+                        }
+                    });
+                    return clsIndex;
+                }
+                getClsList(data.classes);
+                //------------------
+                //如果有绑定的类，修改绑定的类，修改最后一个关联类的display属性
+                if(clsIndex===''){
+                    //如果没有绑定的类，需要创建新的类，并设置display属性
+                    (data.classes).push({
+                        className:createClass(allData,data.tid).className,
+                        used:1,
+                        nodeName:createClass(allData,data.tid).nodeName,
+                        related:0,
+                        style:{display:getDisplay(action.displayIndex)}
+                    });
+
+                }else{
+                    //有类，也已经绑定，只需修改属性
+                    (data.classes)[clsIndex].style.display=getDisplay(action.displayIndex);
+                }
+            }else{
+                //不存在任何类
+                data.classes=[{
+                    className:createClass(allData,data.tid).className,
+                    used:1,
+                    nodeName:createClass(allData,data.tid).nodeName,
+                    related:0,
+                    style:{display:getDisplay(action.displayIndex)}
+                }]
+            }
+        })();
+        return updateDisplay;
         //底部导航栏，鼠标在哪个节点上面
         case 'BOTTOM_NAV_HOVER':
         return Object.assign({},state,{
@@ -182,10 +180,15 @@ function getDisplay(index){
 }
 function createClass(data,typeId){
     let num=1;
-    let cls=Nodes[typeId].en;
-    let node=Nodes[typeId].name;
+    let cls=Nodes[typeId].en;//英文名放在类名中
+    let node=Nodes[typeId].name;//中文名放在输入框中
     //如果有同名的类名，给数字加1
-    (data).map((evt,i)=>{
+    // 把对象转为数组
+    let data2=[];
+    for(let j in data){
+        data2.push(data[j]);
+    }
+    data2.map((evt,i)=>{
         if(evt.classes instanceof Array && evt.classes.length){
             (evt.classes).map((evt2,i2)=>{
                 //有几个同类节点绑定了class,遇到相同的+1

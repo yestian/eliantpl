@@ -4,7 +4,7 @@ import SelectedInput from './selectedInput';
 
 class IsSelectedInput extends Component{
      render(){
-         if(typeof this.props.data.index.selectedId!=='undefined'){
+         if(this.props.data.index.sid){
              return <SelectedInput/>
          }else{
              return <UnSelectedInput/>

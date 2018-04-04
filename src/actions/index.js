@@ -60,18 +60,23 @@ export function siteMouseUp(){
  */
 export function loadSiteData(){
     return function(dispatch){
-        $.ajax({
-            dataType:'jsonp',
-            jsonp: 'callback',
-            url:cfg.url,
-            type:'post',
-            async:false,
-            success:(data)=>{
-                // data=eval('('+data+')');
-                data=JSON.parse(data);
-                dispatch({type:LOAD_SITE_DATA,siteData:data});
-            }
-        })
+        $.get(cfg.url).done(function(data){
+            data=JSON.parse(data);
+            dispatch({type:LOAD_SITE_DATA,siteData:data});
+        });
+        // $.ajax({
+        //     dataType:'jsonp',
+        //     jsonp: 'callback',
+        //     url:cfg.url,
+        //     type:'post',
+        //     async:false,
+        //     success:(data)=>{
+        //         // data=eval('('+data+')');
+        //         data=JSON.parse(data);
+        //         console.log(data);
+        //         dispatch({type:LOAD_SITE_DATA,siteData:data});
+        //     }
+        // })
     }
 }
 

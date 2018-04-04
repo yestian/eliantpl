@@ -9,9 +9,11 @@ import SelectorStateName from './selectorStateName';
 
 class BindedClass extends Component{
      render(){
-         let data=this.props.data;
-         let {selectorState,selectorStateOpen}=this.props;
-         let right=this.props.right.layout;
+         let {selectorState,selectorStateOpen}=this.props;//方法
+         let right=this.props.right.layout;//右侧属性
+         let index=this.props.index;//模板属性
+         //设置节点input框中的名字
+         let node=index.siteData.data[index.sid];//节点所有数据
          return(
              <div className="chunk main">
                  <a className={`pseudo-toggle${right.selectorState?' active':''}`} onClick={selectorStateOpen}><span>状态</span><span className="wf-menu-arrow" /></a>
@@ -36,14 +38,18 @@ class BindedClass extends Component{
                                  </span>
                              </div>
                          </div>
-                         <div style={{margin: 2, position: 'relative', maxWidth: 'calc(100% - 4px)', pointerEvents: 'auto'}}>
-                             <div color="#3b79c3" style={{cursor: 'text', userSelect: 'none', WebkitFontSmoothing: 'antialiased', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box', minWidth: 26, maxWidth: '100%', paddingLeft: 6, paddingRight: 6, borderRadius: 2, height: 24, background: 'rgb(59, 121, 195)', color: 'rgba(255, 255, 255, 0.901961)', position: 'relative', fontSize: 11, textShadow: 'none', boxShadow: 'rgba(0, 0, 0, 0.14902) 0px 0px 0px 1px', overflow: 'hidden'}}>
-                                 <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', opacity: 1, fontFamily: 'inherit', fontSize: 'inherit', fontWeight: 'inherit', outline: 'none'}}>
-                                     {data.nodeName}
-                                 </span>
-                             </div>
-                         </div>
-                         {right.selectorState?<SelectorStateName data={right.selectorState}/>:''}
+                        {node.classes.map((evt,i)=>{
+                            if(evt.used){
+                                return <div key={i} style={{margin: 2, position: 'relative', maxWidth: 'calc(100% - 4px)', pointerEvents: 'auto'}}>
+                                    <div color="#3b79c3" style={{cursor: 'text', userSelect: 'none', WebkitFontSmoothing: 'antialiased', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box', minWidth: 26, maxWidth: '100%', paddingLeft: 6, paddingRight: 6, borderRadius: 2, height: 24, background: 'rgb(59, 121, 195)', color: 'rgba(255, 255, 255, 0.901961)', position: 'relative', fontSize: 11, textShadow: 'none', boxShadow: 'rgba(0, 0, 0, 0.14902) 0px 0px 0px 1px', overflow: 'hidden'}}>
+                                        <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', opacity: 1, fontFamily: 'inherit', fontSize: 'inherit', fontWeight: 'inherit', outline: 'none'}}>
+                                            {evt.nodeName}
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        })}
+                        {right.selectorState?<SelectorStateName data={right.selectorState}/>:''}
                  </div>
                  </div>
              </div>

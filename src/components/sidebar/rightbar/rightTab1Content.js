@@ -13,9 +13,14 @@ class RightTab1Content extends Component{
          let nodeTitle='没有选择';
          let nodeIco='n-div';
          if(index.sid){
-             let thisId=Nodes[index.selectedId.thisid.typeId];
-             nodeTitle=thisId.name;
-             nodeIco=thisId.ico;
+             if(typeof index.siteData.data[index.sid]!=='undefined'){
+                 let tid=index.siteData.data[index.sid].tid;
+                 nodeTitle=Nodes[tid].name;
+                 nodeIco=Nodes[tid].ico;
+             }else{
+                 nodeTitle=Nodes[0].name;
+                 nodeIco=Nodes[0].ico;
+             }
          }
 
          return (

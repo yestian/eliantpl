@@ -13,25 +13,18 @@ class LayoutBody extends Component{
          // let right=this.props.right;
          let index=this.props.index;
 
-         
-         let ids=index.siteData.data;
-         let selectedData='';
-         for(let i=0;i<ids.length;i++){
-             if(ids[i].id===index.selectedId.thisid.id){
-                 selectedData=ids[i];
-                 break;
-             }
-         }
+
+
          return(
              <div className="kit-section-body">
                 <GuidePanel
                      onClick={displaySettingClick}
                      onMouseEnter={layoutIcoMouseEnter}
                      onMouseLeave={layoutIcoMouseLeave}
-                     display={selectedData.display}/>
+                    data={index}/>
                 <MarginBox/>
                 <div className="kit-divider after-margin"></div>
-                <Transition/>
+                <Transition data={this.props.right}/>
             </div>
         )
     }

@@ -47,30 +47,28 @@ class WorkIframe extends Component{
         }
         let index=this.props.index;
         let datas=index.siteData;
-        let {nodeMouseEnter,nodeMouseLeave,nodeClick}=this.props;
+        let {nodeMouseEnter,nodeMouseLeave}=this.props;
         let showSame=this.props.right.layout.showSameTypeNodesLine;//是否显示affect
          if(typeof datas!=='undefined'){
+             //判断当前节点是否有启用的class
+             let used=0;
+             if(index.sid && typeof datas.data[index.sid].classes!=='undefined'){
+                 (datas.data[index.sid].classes).map((evt,i)=>{
+                     if(evt.used){used=1}
+                 })
+             }
              //---------------------------把对象转为数组-------------------
              let data=[];
              let orgin=datas.data;
+
              for(let i in orgin){
-                 data.push(orgin[i]);
+                 //去掉body节点
+                 if(orgin[i].id!==datas.bodyId){
+                    data.push(orgin[i]);
+                 }
              }
 
-             //判断当前节点是否有启用的class
-             let used=0;
-             data.map((evt3,i)=>{
-                 if(evt3.selected){
-                     if(typeof evt3.classes !=='undefined' && evt3.classes.length){
-                         let cls=evt3.classes;
-                         cls.map((evt4,i4)=>{
-                             if(evt4.used){
-                                 used=1;
-                             }
-                         })
-                     }
-                 }
-             })
+
              //-------------获取节点树-----------------
              function digui(data,pid=0){
                  let arr=[];

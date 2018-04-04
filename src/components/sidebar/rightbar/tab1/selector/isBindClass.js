@@ -1,15 +1,15 @@
 import React,{Component} from 'react';
 
-import UnBindClass from './unBindClass';
-import BindedClass from './bindedClass';
+import NoClass from './noClass';
+import HasClass from './hasClass';
 
 class IsBindClass extends Component{
      render(){
-         let data=this.props.data;
-         if(typeof data.used!=='undefined' && data.used){
-             return <BindedClass data={data}/>
+         let hasClass=this.props.hasClass;
+         if(hasClass){
+             return <HasClass/>
          }else{
-             return <UnBindClass/>
+             return <NoClass/>
          }
     }
 }

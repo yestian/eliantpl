@@ -6,11 +6,14 @@ import OutlineDropParentNode from './tools/outlineDropParentNode';
 import HoveredOutline from './tools/hoveredOutline';
 import SelectedOutline from './tools/selectedOutline';
 import OutlineHoveredParentLine from './tools/outlineHoveredParentLine';
+import MarginView from './tools/marginView';
+import PaddingView from './tools/paddingView';
 
 
 class ToolsA extends Component{
      render(){
          let ico=this.props.ico.ico_event;
+         let right=this.props.right.layout;
          let suit=[
               {typeid:0,name:'body',ico:'n-body',accept:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33]},
               {typeid:1,name:'section',ico:'n-div',className:'wf-empty w-section',errMsg:'Section标签不能嵌套，选择div标签代替.',accept:[1,3,4]},
@@ -37,6 +40,9 @@ class ToolsA extends Component{
                      <SelectedOutline/>
                      {/* 展开节点的辅助工具后，鼠标在哪个父级节点上，父级节点的黄色提示框 */}
                      <OutlineHoveredParentLine data={this.props.index}/>
+                     {/* 鼠标放在右侧的拖动工具栏上，显示节点边距尺寸的视图 */}
+                     {right.showNodeMargin?<MarginView data={this.props}/>:null}
+                     {right.showNodePadding?<PaddingView data={this.props}/>:null}
                  </div>
                  {/* 不能放置元素的节点提示，以及放置成功的绿色线条 */}
                  <ItemDragStatus data={this.props} suit={suit}/>

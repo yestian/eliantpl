@@ -13,7 +13,7 @@ class Typography extends Component{
          return(
             <div className={`kit-section typography-section${right.typographyOpen?' open':''}${right.typographyAdv?' show-advanced':''}`}>
                 <Title onClick={tPTitle} data={right}/>
-                <Body/>
+                <Body data={right}/>
             </div>
         )
     }

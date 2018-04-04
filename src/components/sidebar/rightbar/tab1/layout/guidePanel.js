@@ -5,9 +5,16 @@ class GuidePanel extends Component{
          let onClick=this.props.onClick;
          let onMouseEnter=this.props.onMouseEnter;
          let onMouseLeave=this.props.onMouseLeave;
-         let display=this.props.display;
+         let index=this.props.data;
+         let display=index.siteData.data[index.sid].display;
+         let bodyActive=!1;
+         if(typeof index.sid!=='undefined'){
+             if(index.siteData.bodyId===index.sid){
+                 bodyActive=!bodyActive;
+             }
+         }
          return(
-             <div className="guidance-panel-wrapper">
+             <div className={`guidance-panel-wrapper${bodyActive?' active':''}`}>
                  <div className="guidance-panel-child">
                      <div className="bem-Frame">
                          <div className="bem-Frame_Head">

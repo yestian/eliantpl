@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 class LayoutTitle extends Component{
      render(){
          let data=this.props.data;
+         //选中的元素是body还是其他的节点
          return(
-             <div className={`kit-section-title${data.displaySettingIndex!==0?' local':''}`}  onClick={this.props.onClick}>
+             <div className={`kit-section-title${data.sid===data.siteData.bodyId?' local':' upstream'}`}  onClick={this.props.onClick}>
                  <div className="tick sprite-main" />
                  <div className="label">布局</div>
                  <div className="cascade-indicator"><i className="sprite-main" /></div>

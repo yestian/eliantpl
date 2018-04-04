@@ -27,23 +27,16 @@ class SelectedOutline extends Component{
     }
      render(){
          let index=this.props.index;
-         let id=index.sid;
-         let tid=0;//默认就是body的节点类型
-         //根据ID获取对应的名称和图标
-         //第一步：获取tid
-         if(typeof index.siteData!=='undefined'){
+         if(typeof index.siteData!=='undefined' && index.sid){
+             let id=index.sid;
              let arr=[];
              let data=index.siteData.data;
-             //如果不存在就是body节点,body不在data中
              function setArr(id){
-                if(typeof data[id]!=='undefined'){//不是body节点
-                    tid=data[id].tid;
-                    arr.unshift({id:id,name:Nodes[tid].name,ico:Nodes[tid].ico});
+                 let tid=data[id].tid;
+                arr.unshift({id:id,name:Nodes[tid].name,ico:Nodes[tid].ico});
+                if(data[id].pid!==0){
+                    id=data[id].pid;
                     setArr(data[id]);
-                }else{
-                    tid=0;
-                    id=index.siteData.bodyId;
-                    arr.unshift({id:id,name:Nodes[tid].name,ico:Nodes[tid].ico});
                 }
              }
              setArr(id);//执行函数
