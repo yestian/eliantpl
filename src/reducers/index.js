@@ -28,11 +28,13 @@ const index=(state=indexInit,action)=>{
         let updateDisplay=Object.assign({},state,{
             siteData:state.siteData,//整个网站数据
         });
-        updateDisplay.siteData.data[state.sid].display=action.displayIndex;
-
-        let propObj={display:getDisplay(action.displayIndex)}
-        setProp(updateDisplay.siteData.data,state.sid,propObj);
-
+        updateDisplay.siteData.data[state.sid].display=action.displayIndex;//classes外面的数据
+        //classes里面的数据
+        setProp({
+            updateDisplay.siteData.data,
+            state.sid,
+            display:getDisplay(action.displayIndex)
+        });
         return updateDisplay;
         //底部导航栏，鼠标在哪个节点上面
         case 'BOTTOM_NAV_HOVER':
@@ -178,7 +180,8 @@ function getClsList(classes,related=0){
 //1.整站的节点data
 //2.当前节点ID
 //3.需要设置的属性及值
-function setProp(allData,sid,propObj){
+function setProp(datas){
+    let {allData,sid,propObj}=datas;
     let data=allData[sid];
     if(data.classes instanceof Array){
         let classes=data.classes;
