@@ -28,53 +28,11 @@ const index=(state=indexInit,action)=>{
         let updateDisplay=Object.assign({},state,{
             siteData:state.siteData,//整个网站数据
         });
-        //更新数据
-        (function(){
-            let allData=updateDisplay.siteData.data;
-            let data=allData[state.sid];
-            data.display=action.displayIndex;//设置display属性
+        updateDisplay.siteData.data[state.sid].display=action.displayIndex;
 
-            if(data.classes instanceof Array){
-                //----------------
-                let clsIndex='';//需要修改哪一个class的display属性
-                function getClsList(classes,related=0){
-                    classes.map((evt2,i2)=>{
-                        //有且只有一个是used=1而且related=0
-                        if(evt2.related===related && evt2.used){//顶级
-                            clsIndex=i2;
-                            getClsList(classes,evt2.className);
-                        }
-                    });
-                    return clsIndex;
-                }
-                getClsList(data.classes);
-                //------------------
-                //如果有绑定的类，修改绑定的类，修改最后一个关联类的display属性
-                if(clsIndex===''){
-                    //如果没有绑定的类，需要创建新的类，并设置display属性
-                    (data.classes).push({
-                        className:createClass(allData,data.tid).className,
-                        used:1,
-                        nodeName:createClass(allData,data.tid).nodeName,
-                        related:0,
-                        style:{display:getDisplay(action.displayIndex)}
-                    });
+        let propObj={display:getDisplay(action.displayIndex)}
+        setProp(updateDisplay.siteData.data,state.sid,propObj);
 
-                }else{
-                    //有类，也已经绑定，只需修改属性
-                    (data.classes)[clsIndex].style.display=getDisplay(action.displayIndex);
-                }
-            }else{
-                //不存在任何类
-                data.classes=[{
-                    className:createClass(allData,data.tid).className,
-                    used:1,
-                    nodeName:createClass(allData,data.tid).nodeName,
-                    related:0,
-                    style:{display:getDisplay(action.displayIndex)}
-                }]
-            }
-        })();
         return updateDisplay;
         //底部导航栏，鼠标在哪个节点上面
         case 'BOTTOM_NAV_HOVER':
@@ -203,6 +161,55 @@ function createClass(data,typeId){
         return {className:cls+'-'+num,nodeName:node+' '+num}
     }
 }
+//需要修改哪一个类的style
+function getClsList(classes,related=0){
+    let clsIndex=-1;
+    //获取classes中类的索引
+    classes.map((evt,i)=>{
+        //有且只有一个是used=1而且related=0
+        //最后一个used=1,而且realted是上级的类名
+        if(evt.related===related && evt.used){//顶级
+            clsIndex=i;
+            getClsList(classes,evt.className);
+        }
+    });
+    return clsIndex;
+}
+//1.整站的节点data
+//2.当前节点ID
+//3.需要设置的属性及值
+function setProp(allData,sid,propObj){
+    let data=allData[sid];
+    if(data.classes instanceof Array){
+        let classes=data.classes;
+        let clsIndex=getClsList(classes);//需要修改哪一个class的display属性
+        if(clsIndex===-1){
+            //如果没有绑定的类，需要创建新的类，并设置display属性
+            classes.push({
+                className:createClass(allData,data.tid).className,
+                used:1,
+                nodeName:createClass(allData,data.tid).nodeName,
+                related:0,
+                style:{propObj}
+            });
+        }else{
+            //有类，也已经绑定，只需修改属性
+            for(let name in propObj){
+                (classes)[clsIndex].style[name]=propObj[name];
+            }
+        }
+    }else{
+        //不存在数组，即这个类完全没有属性
+        data.classes=[{
+            className:createClass(allData,data.tid).className,
+            used:1,
+            nodeName:createClass(allData,data.tid).nodeName,
+            related:0,
+            style:{propObj}
+        }]
+    }
+}
+
 
 const todoApp = combineReducers({
   ico,index,right

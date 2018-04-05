@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import $ from 'jquery';
-import {connect} from 'react-redux';
+import {connect} from "react-redux";
+import { bindActionCreators} from "redux";
+import * as actionsCreators from "./actions/right";
 import WorkSpace from './workspace.js';
 import DesignerReact from './DesignerReact';
 
@@ -31,7 +33,17 @@ class App extends Component{
             $('body,.canvas-resize-handle').removeClass('wf-resizing wf-canvas-resizing');
             $('.wf-resizing-overlay').remove();
         }
-
+        let layout=this.props.right.layout;
+        let clikType=0;
+        if(layout.nodeMarginActive){clikType=1}
+        if(layout.nodePaddingActive){clikType=2}
+        //是否发生了drag行为
+        let isDrag=0;
+        if(layout.layoutDragId===this.props.sid){isDrag=1}
+        //点击的方位
+        let nodePos=0;
+        if(layout.nodePosition===1 || layout.nodePosition===3){nodePos='row'}
+        if(layout.nodePosition===2 || layout.nodePosition===4){nodePos='col'}
         return (
             <React.Fragment>
                 <WorkSpace/>
@@ -41,7 +53,9 @@ class App extends Component{
                   <DesignerReact/>
                 </div>
                 <div id="preload-assets"></div>
-                <div id="drag-ghost"></div>
+                <div id="drag-ghost">
+                    {layout.nodePosition?<div className={`drag-ghost ${nodePos}`} onMouseUp={()=>{this.props.nodeLayoutMouseUp(clikType,layout.nodePosition,isDrag)}}></div>:null}
+                </div>
                 <div id="debug-undo-stack" className="debug-panel">
                     <div className="column undo">
                         <div className="title">撤销
@@ -70,6 +84,4 @@ $(document).ready(function(){
 });
 //connect链接
 
-
-
-export default connect((state)=>state)(App);
+export default connect(state=>state,dispatch=>bindActionCreators(actionsCreators,dispatch))(App);

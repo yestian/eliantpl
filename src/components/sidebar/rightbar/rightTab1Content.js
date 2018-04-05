@@ -4,6 +4,7 @@ import Nodes from '../../../common/config/getNodeRelated.json';
 import IsDummyTab1 from './tab1/isDummyTab1';
 import IsSelectedInput from './tab1/selector/isSelectedInput';
 import Affecting from './tab1/affecting';
+import ResizeNode from './resizeNode';
 
 class RightTab1Content extends Component{
      render(){
@@ -41,6 +42,7 @@ class RightTab1Content extends Component{
                     </div>
                     <IsDummyTab1 data={data}/>
                  </div>
+                 {index.sid?<ResizeNode data={data}/>:null}
              </div>
          )
     }

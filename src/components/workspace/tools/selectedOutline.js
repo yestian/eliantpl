@@ -27,7 +27,8 @@ class SelectedOutline extends Component{
     }
      render(){
          let index=this.props.index;
-         if(typeof index.siteData!=='undefined' && index.sid){
+         let layout=this.props.right.layout;
+         if(typeof index.siteData!=='undefined' && index.sid && !layout.nodeMarginActive &&!layout.nodePaddingActive){
              let id=index.sid;
              let arr=[];
              let data=index.siteData.data;

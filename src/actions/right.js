@@ -1,6 +1,6 @@
 import Type from './type';
 import $ from 'jquery';
-const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_EFFECT,TOGGLE_SHADOWS,TOGGLE_TRANSLATE,SHOW_NODE_MARGIN,SHOW_NODE_PADDING}=Type;
+const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_EFFECT,TOGGLE_SHADOWS,TOGGLE_TRANSLATE,SHOW_NODE_MARGIN,SHOW_NODE_PADDING,NODE_MARGIN_CLICK,NODE_PADDING_CLICK,LAYOUT_DRAG_START,LAYOUT_DRAGGING,LAYOUT_DRAG_STOP}=Type;
 
 
 
@@ -162,9 +162,81 @@ export function suggestionHover(index){
 
 //鼠标在外层拖拽工具上
 export function showNodeMargin(status){
-    return {type:SHOW_NODE_MARGIN,data:status}
+    return function(dispatch){
+        dispatch({type:SHOW_NODE_MARGIN,data:status})
+    }
 }
 //鼠标在内层拖拽工具上
 export function showNodePadding(status){
     return {type:SHOW_NODE_PADDING,data:status}
+}
+
+/**
+ * 点击layout上的可拖动的地方，给当前方位的值+1
+ * @param  {[type]} marginOrPadding [点击的是margin还是padding]
+ * @param  {[type]} direction       [上右下左四个方位]
+ * @return {[type]}                 [description]
+ */
+export function nodeLayoutMouseDown(marginOrPadding,direction){
+    return function(dispatch){
+        //margin 点击
+        if(marginOrPadding===1){
+            dispatch({type:NODE_MARGIN_CLICK,nodeMarginActive:1,nodePosition:direction})
+        }
+
+        //padding点击
+        if(marginOrPadding===2){
+            dispatch({type:NODE_PADDING_CLICK,nodePaddingActive:1,nodePosition:direction})
+        }
+    }
+}
+/**
+ * 鼠标弹起，
+ * @return {[type]} [description]
+ */
+export function nodeLayoutMouseUp(marginOrPadding,direction,hasDragged){
+    return function(dispatch){
+        //发生了drag行为，就返回
+        if(hasDragged){
+            return false;
+        }
+        //如果没有drag行为，给当前结果+1，需要margin还是padding,点击是哪个方位
+        //margin
+        if(marginOrPadding===1){
+            dispatch({type:NODE_MARGIN_CLICK,nodeMarginActive:0,nodePosition:0})
+        }
+
+        //padding
+        if(marginOrPadding===2){
+            dispatch({type:NODE_PADDING_CLICK,nodePaddingActive:0,nodePosition:0})
+        }
+    }
+}
+
+
+export function layoutDragStart(event,ui,dragId){
+    let data={
+        left0:ui.offset.left,
+        top0:ui.offset.top,
+        dragId:dragId//给mouseup做判断，dragId和选中的sid一致，说明产生了drag
+    }
+    return {type:LAYOUT_DRAG_START,data}
+}
+/**
+ * 记录坐标的实时变动
+ * @param  {[type]} event [description]
+ * @param  {[type]} ui    [description]
+ * @return {[type]}       [description]
+ */
+export function layoutDragging(event,ui){
+    let data={
+        left:ui.offset.left,
+        top:ui.offset.top
+    }
+    return {type:LAYOUT_DRAGGING,data}
+}
+
+export function layoutDragStop(event,ui){
+    //恢复节点选中，清空坐标数据
+    return {type:LAYOUT_DRAG_STOP}
 }
