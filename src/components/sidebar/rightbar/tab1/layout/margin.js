@@ -17,9 +17,9 @@ class Margin extends Component{
             scroll: true,
             helper:function(){return $('#drag-ghost .row').clone()},
             // revert: "invalid",
-            start:this.props.marginDragStart,
-            drag:this.props.marginDragging,
-            stop:this.props.marginDragStop
+            start:(event,ui)=>{this.props.layoutDragStart(event,ui,this.props.index.sid)},
+            drag:this.props.layoutDragging,
+            stop:this.props.layoutDragStop
         });
         $('.handle.left,.handle.right').draggable({
             addClasses:false,
@@ -28,14 +28,13 @@ class Margin extends Component{
             scroll: true,
             helper:function(){return $('#drag-ghost .col').clone()},
             // revert: "invalid",
-            start:this.props.marginDragStart,
-            drag:this.props.marginDragging,
-            stop:this.props.marginDragStop
+            start:(event,ui)=>{this.props.layoutDragStart(event,ui,this.props.index.sid)},
+            drag:this.props.layoutDragging,
+            stop:this.props.layoutDragStop
         });
 
     }
     render(){
-
         // let right=this.props.right;
         let {showNodeMargin,nodeLayoutMouseDown}=this.props;
         return(

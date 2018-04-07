@@ -9,7 +9,7 @@ import Transition from './transition';
 
 class LayoutBody extends Component{
      render(){
-         let {displaySettingClick,layoutIcoMouseEnter,layoutIcoMouseLeave}=this.props;
+         let {displaySettingClick,layoutIcoMouseEnter,layoutIcoMouseLeave,marginAuto}=this.props;
          // let right=this.props.right;
          let index=this.props.index;
 
@@ -22,7 +22,7 @@ class LayoutBody extends Component{
                      onMouseEnter={layoutIcoMouseEnter}
                      onMouseLeave={layoutIcoMouseLeave}
                     data={index}/>
-                <MarginBox/>
+                <MarginBox data={marginAuto} right={this.props.right}/>
                 <div className="kit-divider after-margin"></div>
                 <Transition data={this.props.right}/>
             </div>

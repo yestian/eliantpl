@@ -2,8 +2,9 @@ import React,{Component} from "react";
 
 class MarginAuto extends Component{
     render(){
+        let status=this.props.right.layout.marginAuto;
         return(
-            <div className="kit-button margin-auto">
+            <div className={`kit-button margin-auto${status?' active':''}`} onClick={()=>{this.props.onClick(status)}}>
                 <div className="wf-tip bottom win-fit">
                     <div className="label">居中元素 (需要宽度)</div>
                     <div className="arrow" />

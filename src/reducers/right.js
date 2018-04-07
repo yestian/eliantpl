@@ -21,8 +21,8 @@ const layoutInit={
     nodeMarginActive:0,//点击事件激活
     nodePaddingActive:0,//点击事件激活
     nodePosition:0,//右侧layout工具栏，点击的方位，
-    layoutDragXY:0,//拖拽坐标记录
     layoutDragId:0,
+    marginAuto:0,
 }
 //布局模块
 const layout=(state=layoutInit,action)=>{
@@ -31,6 +31,10 @@ const layout=(state=layoutInit,action)=>{
         case 'DISPLAY_SETTING_CLICK' :
         return Object.assign({},state,{
             displaySettingTip:{}
+        });
+        case 'MARGIN_AUTO' :
+        return Object.assign({},state,{
+            marginAuto:!state.marginAuto
         });
         case 'NODE_CLICK' :
         return Object.assign({},state,{
@@ -162,18 +166,10 @@ const layout=(state=layoutInit,action)=>{
         //draggable--------------------------------------
         case 'LAYOUT_DRAG_START' :
         return Object.assign({},state,{
-            layoutDragXY:action.data,
-            layoutDragId:action.dragId
-        });
-        case 'LAYOUT_DRAGGING' :
-        return Object.assign({},state,{
-            layoutDragXY:{
-                ...state.layoutDragXY,...action.data
-            }
+            layoutDragId:action.layoutDragId
         });
         case 'LAYOUT_DRAG_STOP' :
         return Object.assign({},state,{
-            layoutDragXY:0,
             nodeMarginActive:0,
             nodePaddingActive:0,
             nodePosition:0

@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-
+import ABC from "../../../../../common/func.js";
 class GuidePanel extends Component{
      render(){
          let onClick=this.props.onClick;
          let onMouseEnter=this.props.onMouseEnter;
          let onMouseLeave=this.props.onMouseLeave;
          let index=this.props.data;
-         let display=index.siteData.data[index.sid].display;
+         let data=index.siteData.data;
+         let display=data[index.sid].display;
          let bodyActive=!1;
          if(typeof index.sid!=='undefined'){
              if(index.siteData.bodyId===index.sid){
                  bodyActive=!bodyActive;
              }
          }
+         //如果display属性出现在当前class的属性中，则激活display
+         let type=ABC.thisCls(data[index.sid],'display');
          return(
              <div className={`guidance-panel-wrapper${bodyActive?' active':''}`}>
                  <div className="guidance-panel-child">
                      <div className="bem-Frame">
                          <div className="bem-Frame_Head">
                              <div className="bem-Frame_Legend">
-                                 <div className="bem-SpecificityLabel bem-SpecificityLabel-text">显示设置</div>
+                                 <div className={`bem-SpecificityLabel bem-SpecificityLabel-text${type?' bem-SpecificityLabel-local':''}`}>显示设置</div>
                              </div>
                          </div>
                          <div className="bem-Frame_Body">

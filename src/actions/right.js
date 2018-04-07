@@ -1,6 +1,6 @@
 import Type from './type';
 import $ from 'jquery';
-const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_EFFECT,TOGGLE_SHADOWS,TOGGLE_TRANSLATE,SHOW_NODE_MARGIN,SHOW_NODE_PADDING,NODE_MARGIN_CLICK,NODE_PADDING_CLICK,LAYOUT_DRAG_START,LAYOUT_DRAGGING,LAYOUT_DRAG_STOP}=Type;
+const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_EFFECT,TOGGLE_SHADOWS,TOGGLE_TRANSLATE,SHOW_NODE_MARGIN,SHOW_NODE_PADDING,NODE_MARGIN_CLICK,NODE_PADDING_CLICK,LAYOUT_DRAG_START,LAYOUT_DRAGGING,LAYOUT_DRAG_STOP,NODE_BEFORE_DRAG,LAYOUT_MOUSEUP,MARGIN_AUTO}=Type;
 
 
 
@@ -188,6 +188,7 @@ export function nodeLayoutMouseDown(marginOrPadding,direction){
         if(marginOrPadding===2){
             dispatch({type:NODE_PADDING_CLICK,nodePaddingActive:1,nodePosition:direction})
         }
+        dispatch({type:NODE_BEFORE_DRAG,layoutDragType:`${marginOrPadding}${direction}`})
     }
 }
 /**
@@ -197,9 +198,9 @@ export function nodeLayoutMouseDown(marginOrPadding,direction){
 export function nodeLayoutMouseUp(marginOrPadding,direction,hasDragged){
     return function(dispatch){
         //发生了drag行为，就返回
-        if(hasDragged){
-            return false;
-        }
+        // if(hasDragged){
+        //     return false;
+        // }
         //如果没有drag行为，给当前结果+1，需要margin还是padding,点击是哪个方位
         //margin
         if(marginOrPadding===1){
@@ -210,17 +211,28 @@ export function nodeLayoutMouseUp(marginOrPadding,direction,hasDragged){
         if(marginOrPadding===2){
             dispatch({type:NODE_PADDING_CLICK,nodePaddingActive:0,nodePosition:0})
         }
+        dispatch({type:LAYOUT_MOUSEUP})
     }
 }
 
 
-export function layoutDragStart(event,ui,dragId){
+export function layoutDragStart(event,ui,layoutDragId){
+    //记录节点的初始值
+    let node=$('#site-iframe-next').contents().find("[data-id="+layoutDragId+"]");
     let data={
         left0:ui.offset.left,
         top0:ui.offset.top,
-        dragId:dragId//给mouseup做判断，dragId和选中的sid一致，说明产生了drag
+        mleft:parseFloat(node.css("marginLeft"),10),
+        mright:parseFloat(node.css('marginRight'),10),
+        mtop:parseFloat(node.css('marginTop'),10),
+        mbottom:parseFloat(node.css('marginBottom'),10),
+        ptop:parseFloat(node.css('paddingTop'),10),
+        pright:parseFloat(node.css('paddingRight'),10),
+        pbottom:parseFloat(node.css('paddingBottom'),10),
+        pleft:parseFloat(node.css('paddingLeft'),10)
     }
-    return {type:LAYOUT_DRAG_START,data}
+    //给mouseup做判断，dragId和选中的sid一致，说明产生了drag
+    return {type:LAYOUT_DRAG_START,data,layoutDragId}
 }
 /**
  * 记录坐标的实时变动
@@ -239,4 +251,9 @@ export function layoutDragging(event,ui){
 export function layoutDragStop(event,ui){
     //恢复节点选中，清空坐标数据
     return {type:LAYOUT_DRAG_STOP}
+}
+
+export function marginAuto(status){
+    //恢复节点选中，清空坐标数据
+    return {type:MARGIN_AUTO,status}
 }

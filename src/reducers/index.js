@@ -17,12 +17,109 @@ const indexInit={
     sid:0,//选中的节点ID
     inside:0,//图标显示在节点内部
     hangdown:0,//图标显示在节点下面
+    layoutDragXY:0,//拖拽坐标记录
+    layoutDragType:0,
 }
 
 
 //和框架内的页面相关的内容在此处设置
 const index=(state=indexInit,action)=>{
     switch(action.type){
+        //修改类的margin属性
+        case 'LAYOUT_DRAG_START':
+        return Object.assign({},state,{
+            layoutDragXY:action.data
+        });
+        case 'NODE_BEFORE_DRAG':
+        return Object.assign({},state,{
+            layoutDragType:action.layoutDragType,
+            hoveredId:{}
+        });
+        case 'MARGIN_AUTO':
+        let marginAuto=Object.assign({},state,{
+            siteData:state.siteData,//整个网站数据
+            hoveredId:{}
+        });
+        if(action.status){
+            setProp({
+                allData:marginAuto.siteData.data,
+                sid:state.sid,
+                propObj:{"margin-left":"auto","margin-right":"auto"}
+            });
+        }else{
+            setProp({
+                allData:marginAuto.siteData.data,
+                sid:state.sid,
+                propObj:{"margin-left":0,"margin-right":0}
+            });
+        }
+
+        return marginAuto;
+        case 'LAYOUT_DRAGGING' :
+        //复制站点数据
+        let layoutDragging=Object.assign({},state,{
+            siteData:state.siteData,//整个网站数据
+            hoveredId:{}
+        });
+        (function(){
+            let XY=state.layoutDragXY;
+            let DXY=action.data;
+            let mTop=XY.top0-DXY.top+XY.mtop;
+            let mLeft=-(XY.left0-DXY.left)+XY.mleft;
+            let mRight=-(XY.left0-DXY.left)+XY.mright;
+            let mBottom=-(XY.top0-DXY.top)+XY.mbottom;
+
+            let pTop=XY.top0-DXY.top+XY.ptop;
+            let pLeft=XY.left0-DXY.left+XY.pleft;
+            let pRight=-(XY.left0-DXY.left)+XY.pright;
+            let pBottom=-(XY.top0-DXY.top)+XY.pbottom;
+            let propObj={};
+            let T=parseInt(state.layoutDragType,10);
+            if(T===11){
+                propObj={'margin-top':mTop+'px'};
+            }
+            if(T===12){
+                propObj={'margin-right':mRight+'px'};
+            }
+            if(T===13){
+                propObj={'margin-bottom':mBottom+'px'};
+            }
+            if(T===14){
+                propObj={'margin-left':mLeft+'px'};
+            }
+            if(T===21){
+                propObj={'padding-top':pTop+'px'};
+            }
+            if(T===22){
+                propObj={'padding-right':pRight+'px'};
+            }
+            if(T===23){
+                propObj={'padding-bottom':pBottom+'px'};
+            }
+            if(T===24){
+                propObj={'padding-left':pLeft+'px'};
+            }
+            setProp({
+                allData:layoutDragging.siteData.data,
+                sid:state.sid,
+                propObj:propObj
+            });
+        })()
+        return layoutDragging;
+
+
+        case 'LAYOUT_DRAG_STOP' :
+        return Object.assign({},state,{
+            layoutDragXY:0,
+            layoutDragType:0
+        });
+        case 'LAYOUT_MOUSEUP' :
+        return Object.assign({},state,{
+            layoutDragXY:0,
+            layoutDragType:0
+        });
+
+        //更新显示方式
         case 'UPDATE_DISPLAY':
         //复制站点数据
         let updateDisplay=Object.assign({},state,{
@@ -31,9 +128,9 @@ const index=(state=indexInit,action)=>{
         updateDisplay.siteData.data[state.sid].display=action.displayIndex;//classes外面的数据
         //classes里面的数据
         setProp({
-            updateDisplay.siteData.data,
-            state.sid,
-            display:getDisplay(action.displayIndex)
+            allData:updateDisplay.siteData.data,
+            sid:state.sid,
+            propObj:{display:getDisplay(action.displayIndex)}
         });
         return updateDisplay;
         //底部导航栏，鼠标在哪个节点上面
@@ -164,18 +261,18 @@ function createClass(data,typeId){
     }
 }
 //需要修改哪一个类的style
+let getClsListIndex=-1;
 function getClsList(classes,related=0){
-    let clsIndex=-1;
     //获取classes中类的索引
     classes.map((evt,i)=>{
         //有且只有一个是used=1而且related=0
         //最后一个used=1,而且realted是上级的类名
         if(evt.related===related && evt.used){//顶级
-            clsIndex=i;
+            getClsListIndex=i;
             getClsList(classes,evt.className);
         }
     });
-    return clsIndex;
+    return getClsListIndex;
 }
 //1.整站的节点data
 //2.当前节点ID
@@ -208,7 +305,7 @@ function setProp(datas){
             used:1,
             nodeName:createClass(allData,data.tid).nodeName,
             related:0,
-            style:{propObj}
+            style:propObj
         }]
     }
 }

@@ -8,7 +8,7 @@ class MarginBox extends Component{
          return(
             <div className="margin-box offset-box clearfix">
                 {/* <DragSVG/> */}
-                <MarginAuto/>
+                <MarginAuto onClick={this.props.data} right={this.props.right}/>
                 <Margin/>
             </div>
         )

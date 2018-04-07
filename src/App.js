@@ -38,8 +38,7 @@ class App extends Component{
         if(layout.nodeMarginActive){clikType=1}
         if(layout.nodePaddingActive){clikType=2}
         //是否发生了drag行为
-        let isDrag=0;
-        if(layout.layoutDragId===this.props.sid){isDrag=1}
+        let isDrag=layout.layoutDragId;
         //点击的方位
         let nodePos=0;
         if(layout.nodePosition===1 || layout.nodePosition===3){nodePos='row'}
