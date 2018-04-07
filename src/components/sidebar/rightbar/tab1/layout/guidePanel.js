@@ -22,7 +22,7 @@ class GuidePanel extends Component{
                      <div className="bem-Frame">
                          <div className="bem-Frame_Head">
                              <div className="bem-Frame_Legend">
-                                 <div className={`bem-SpecificityLabel bem-SpecificityLabel-text${type?' bem-SpecificityLabel-local':''}`}>显示设置</div>
+                                 <div className={`bem-SpecificityLabel bem-SpecificityLabel-text${type.a?' bem-SpecificityLabel-local':''}`}>显示设置</div>
                              </div>
                          </div>
                          <div className="bem-Frame_Body">

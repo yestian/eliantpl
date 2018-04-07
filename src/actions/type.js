@@ -68,6 +68,7 @@ const Type={
     NODE_BEFORE_DRAG:'NODE_BEFORE_DRAG',//给drag提供准备
     LAYOUT_MOUSEUP:'LAYOUT_MOUSEUP',
     MARGIN_AUTO:'MARGIN_AUTO',
+    SET_VALUE:'SET_VALUE',
 }
 
 export default Type;

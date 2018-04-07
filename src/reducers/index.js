@@ -35,12 +35,30 @@ const index=(state=indexInit,action)=>{
             layoutDragType:action.layoutDragType,
             hoveredId:{}
         });
+
+        case 'SET_VALUE':
+        let setValue=Object.assign({},state,{
+            siteData:state.siteData,//整个网站数据
+            hoveredId:{}
+        });
+        (function(){
+            let obj={};
+            obj[action.prop]=action.value;
+            setProp({
+                allData:setValue.siteData.data,
+                sid:state.sid,
+                propObj:obj
+            });
+        })()
+
+        return setValue;
+
         case 'MARGIN_AUTO':
         let marginAuto=Object.assign({},state,{
             siteData:state.siteData,//整个网站数据
             hoveredId:{}
         });
-        if(action.status){
+        if(!action.status){
             setProp({
                 allData:marginAuto.siteData.data,
                 sid:state.sid,
@@ -88,15 +106,19 @@ const index=(state=indexInit,action)=>{
                 propObj={'margin-left':mLeft+'px'};
             }
             if(T===21){
+                if(pTop<0){pTop=0}
                 propObj={'padding-top':pTop+'px'};
             }
             if(T===22){
+                if(pRight<0){pRight=0}
                 propObj={'padding-right':pRight+'px'};
             }
             if(T===23){
+                if(pBottom<0){pBottom=0}
                 propObj={'padding-bottom':pBottom+'px'};
             }
             if(T===24){
+                if(pLeft<0){pLeft=0}
                 propObj={'padding-left':pLeft+'px'};
             }
             setProp({

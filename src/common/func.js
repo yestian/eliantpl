@@ -15,23 +15,29 @@ function thisCls(data,prop){
         if(typeof lastCls.style!=='undefined' && lastCls.style.hasOwnProperty(prop)){
             obj.a=1;
             obj.b=lastCls.style[prop];
-            return obj;
         }else{
             //把当前节点的所有类展开
-            let allprops={};
-            cls.map((evt,i)=>{//所有类
-                let style=evt.style;
-            });
-            //判断值是否在数组中
-            if(isInArray(allprops,prop)){
-                return 2;
-            }else{
-                return 0;
+            function getIndex(cls,related=0){
+                //获取cls中类的索引
+                cls.map((evt,i)=>{
+                    //有且只有一个是used=1而且related=0
+                    //最后一个used=1,而且realted是上级的类名
+                    if(evt.related===related && evt.used){//顶级
+                        let style=evt.style;
+                        for(let name in style){
+                            if(name===prop){
+                                obj.b=style[name];
+                                obj.a=2;
+                            }
+                        }
+                        getIndex(cls,evt.className);
+                    }
+                });
             }
+            getIndex(cls);
         }
-    }else{
-        return 0;
     }
+    return obj;
 }
 
 //获取正在使用中的类的索引值

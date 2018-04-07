@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from "react-redux";
+import { bindActionCreators} from "redux";
+import * as actionsCreators from "../../../../../actions/right";
 import Width from './transition/width';
 import Height from './transition/height';
 import MinWidth from './transition/minWidth';
@@ -15,7 +18,7 @@ class Transition extends Component{
          let adv=this.props.data.layout.layoutAdv;
          return(
             <div className="transition-parent kit-panel">
-                <Width/>
+                <Width onBlur={this.props.setValue} data={this.props.index}/>
                 <Height/>
                 {adv?<MinWidth/>:''}
                 {adv?<MinHeight/>:''}
@@ -33,4 +36,5 @@ class Transition extends Component{
         )
     }
 }
-export default Transition;
+
+export default connect(state=>state,dispatch=>bindActionCreators(actionsCreators,dispatch))(Transition);

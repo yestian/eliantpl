@@ -38,7 +38,8 @@ const layout=(state=layoutInit,action)=>{
         });
         case 'NODE_CLICK' :
         return Object.assign({},state,{
-            selectorState:0
+            selectorState:0,
+            marginAuto:0
         });
         case 'NODE_HELPER_CLICK' :
         return Object.assign({},state,{
