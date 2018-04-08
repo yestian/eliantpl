@@ -13,7 +13,7 @@ function thisCls(data,prop){
         let index=getClsList(cls);//找到最后一个使用中的关联类名的索引
         let lastCls=cls[index];//最后一个使用中的类
         if(typeof lastCls.style!=='undefined' && lastCls.style.hasOwnProperty(prop)){
-            obj.a=1;
+            obj.a=1;//1是修改后的属性
             obj.b=lastCls.style[prop];
         }else{
             //把当前节点的所有类展开
@@ -27,7 +27,7 @@ function thisCls(data,prop){
                         for(let name in style){
                             if(name===prop){
                                 obj.b=style[name];
-                                obj.a=2;
+                                obj.a=2;//2是继承后的属性
                             }
                         }
                         getIndex(cls,evt.className);
@@ -74,12 +74,47 @@ function isInArray(arr,value){
     return false;
 }
 
+//layout值的转换
+function transLateValue(prop,obj,index,M){
+    let newObj={};
+    //如果不是转换，无需下面的代码
+    if(index===1){
+        //转换为px
+        if(!obj.unit || obj.unit==='-'){
+            //从auto转换而来
+            newObj[prop]=0;
+            newObj.unit='px';
+        }
+        if(obj.unit==='%'){
+            newObj[prop]=parseInt(M*obj[prop]*0.01,10);
+            newObj.unit='px';
+        }
+    }
 
+    if(index===2){
+        //转换为%
+        if(!obj.unit || obj.unit==='-'){
+            //从auto转换而来
+            newObj[prop]=100;
+            newObj.unit='%';
+        }
+        if(obj.unit==='px'){
+            newObj[prop]=parseInt(obj[prop]/M*100,10);
+            newObj.unit='%';
+        }
+    }
 
-
-
-
-
+    if(index===3){
+        //转换为auto
+        newObj[prop]='auto';
+        newObj.unit='';
+    }
+    return newObj;
+    // {
+    //     width:100,
+    //     unit:'px'
+    // }
+}
 
 
 
@@ -91,5 +126,6 @@ function isInArray(arr,value){
 
 
 export default {
-    "thisCls":thisCls
+    "thisCls":thisCls,
+    "transLateValue":transLateValue
 }

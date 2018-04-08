@@ -18,7 +18,7 @@ class Transition extends Component{
          let adv=this.props.data.layout.layoutAdv;
          return(
             <div className="transition-parent kit-panel">
-                <Width onBlur={this.props.setValue} data={this.props.index}/>
+                <Width data={this.props}/>
                 <Height/>
                 {adv?<MinWidth/>:''}
                 {adv?<MinHeight/>:''}

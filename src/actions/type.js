@@ -69,6 +69,7 @@ const Type={
     LAYOUT_MOUSEUP:'LAYOUT_MOUSEUP',
     MARGIN_AUTO:'MARGIN_AUTO',
     SET_VALUE:'SET_VALUE',
+    OPEN_UNIT:'OPEN_UNIT',
 }
 
 export default Type;

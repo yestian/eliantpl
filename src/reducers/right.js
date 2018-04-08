@@ -23,11 +23,16 @@ const layoutInit={
     nodePosition:0,//右侧layout工具栏，点击的方位，
     layoutDragId:0,
     marginAuto:0,
+    openUnit:0,//layout后面的单位
 }
 //布局模块
 const layout=(state=layoutInit,action)=>{
     switch(action.type){
         //css layout显示设置，鼠标click提示文字
+        case 'OPEN_UNIT' :
+        return Object.assign({},state,{
+            openUnit:action.openUnit
+        });
         case 'DISPLAY_SETTING_CLICK' :
         return Object.assign({},state,{
             displaySettingTip:{}

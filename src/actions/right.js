@@ -1,6 +1,6 @@
 import Type from './type';
 import $ from 'jquery';
-const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_EFFECT,TOGGLE_SHADOWS,TOGGLE_TRANSLATE,SHOW_NODE_MARGIN,SHOW_NODE_PADDING,NODE_MARGIN_CLICK,NODE_PADDING_CLICK,LAYOUT_DRAG_START,LAYOUT_DRAGGING,LAYOUT_DRAG_STOP,NODE_BEFORE_DRAG,LAYOUT_MOUSEUP,MARGIN_AUTO,SET_VALUE}=Type;
+const {TOGGLE_CSSLAYOUT,TOGGLE_LAYOUT_ADVANCED,DISPLAY_SETTING_HOVER,DISPLAY_SETTING_CLICK,UPDATE_DISPLAY,TOGGLE_SAME_TYPE,SELECTOR_STATE,SELECTOR_STATE_OPEN,NEED_CLASS,SET_SUGGESTIONS,SUGGESTIONS_HOVER,TOGGLE_BG,TOGGLE_TYPOGRAPHY,TOGGLE_TYPOGRAPHY_ADV,TOGGLE_BORDER,TOGGLE_EFFECT,TOGGLE_SHADOWS,TOGGLE_TRANSLATE,SHOW_NODE_MARGIN,SHOW_NODE_PADDING,NODE_MARGIN_CLICK,NODE_PADDING_CLICK,LAYOUT_DRAG_START,LAYOUT_DRAGGING,LAYOUT_DRAG_STOP,NODE_BEFORE_DRAG,LAYOUT_MOUSEUP,MARGIN_AUTO,SET_VALUE,OPEN_UNIT}=Type;
 
 
 
@@ -258,8 +258,36 @@ export function marginAuto(status){
     return {type:MARGIN_AUTO,status}
 }
 
-export function setValue(prop,value){
-    console.log(prop,value);
-    //恢复节点选中，清空坐标数据
-    return {type:SET_VALUE,prop,value}
+//提交layout里面的值
+export function setValue(prop,obj){
+    return function(dispatch){
+        if(!prop){
+            return false;
+        }
+        let unit=obj.unit;
+        if(obj.unit==='-'){
+            unit='px';
+        }
+        let value=obj[prop]+unit;
+        //恢复节点选中，清空坐标数据
+        dispatch({type:SET_VALUE,prop,value});
+    }
+
+}
+//通过转换的方式
+export function setValue2(prop,obj){
+    return function(dispatch){
+        let value=obj[prop]+obj.unit;
+        //恢复节点选中，清空坐标数据
+        dispatch({type:SET_VALUE,prop,value});
+        dispatch({type:OPEN_UNIT,openUnit:0});
+    }
+
+}
+export function openUnit(index){
+    return {type:OPEN_UNIT,openUnit:index}
+}
+//关闭弹出的菜单
+export function closeDropDown(){
+    return {type:OPEN_UNIT,openUnit:0}
 }
