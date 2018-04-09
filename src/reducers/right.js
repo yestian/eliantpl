@@ -24,11 +24,16 @@ const layoutInit={
     layoutDragId:0,
     marginAuto:0,
     openUnit:0,//layout后面的单位
+    openPropWindow:0,//是否打开属性值的弹窗,===1的时候清空输入框的值
 }
 //布局模块
 const layout=(state=layoutInit,action)=>{
     switch(action.type){
         //css layout显示设置，鼠标click提示文字
+        case 'OPEN_PROP_WINDOW' :
+        return Object.assign({},state,{
+            ...action
+        });
         case 'OPEN_UNIT' :
         return Object.assign({},state,{
             openUnit:action.openUnit

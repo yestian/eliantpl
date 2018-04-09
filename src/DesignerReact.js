@@ -20,6 +20,7 @@ import LogoOpenMenu from './components/sidebar/logoOpenMenu';
 import TutorVideo from './components/sidebar/leftbar/leftsub/tutorVideo';
 import LeftCMSSub from './components/sidebar/leftbar/leftsub/addEleCMS';
 import LeftDragHelperClone from './components/sidebar/leftbar/leftDragHelperClone';
+import ModifyRightValue from './components/sidebar/rightbar/tab1/layout/modifyRightValue';
 
 class DesignerReact extends Component {
     render() {
@@ -71,6 +72,8 @@ class DesignerReact extends Component {
                     <SidebarIcoEnter icoprops={icoprops} right={rightside}/>
                     {/* 点击Logo产生的菜单 */}
                     <LogoOpenMenu icoprops={icoprops} onMouseLeave={toggleLogo}/>
+                    {/* 右侧修改尺寸弹出的窗口 */}
+                    <ModifyRightValue data={this.props}/>
                 </div>
             </div>
         );

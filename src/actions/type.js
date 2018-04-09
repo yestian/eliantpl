@@ -70,6 +70,8 @@ const Type={
     MARGIN_AUTO:'MARGIN_AUTO',
     SET_VALUE:'SET_VALUE',
     OPEN_UNIT:'OPEN_UNIT',
+    OPEN_PROP_WINDOW:'OPEN_PROP_WINDOW',//移除属性值的弹窗
+    REMOVE_PROP:'REMOVE_PROP',//移除属性
 }
 
 export default Type;

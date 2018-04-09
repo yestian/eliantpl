@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Type from './type';
-const {EYE_TOGGLE,ICO_MOUSE_ENTER,ICO_MOUSE_LEAVE,TOPBAR_TOGGLE,SELECT_MEDIA,TOGGLE_EDGES,TOGGLE_EMPTY,TOGGLE_GRID,TOGGLE_XRAY,TOGGLE_TOTUR,TOGGLE_LOGO,TOGGLE_ADD,TOGGLE_PAGES,TOGGLE_CMS,TOGGLE_PICTURES,TOGGLE_SETTINGS,TOGGLE_ADDTYPE,TOGGLE_RIGHT_TABS,ADD_SUB_MOUSEENTER,TOGGLE_QMARK,ITEM_DRAG_START,ITEM_DRAG_STOP,ITEM_DRAG_MOUSEDOWN,ITEM_DROP_OVER,ITEM_DROP_STOP}=Type;
+const {EYE_TOGGLE,ICO_MOUSE_ENTER,ICO_MOUSE_LEAVE,TOPBAR_TOGGLE,SELECT_MEDIA,TOGGLE_EDGES,TOGGLE_EMPTY,TOGGLE_GRID,TOGGLE_XRAY,TOGGLE_TOTUR,TOGGLE_LOGO,TOGGLE_ADD,TOGGLE_PAGES,TOGGLE_CMS,TOGGLE_PICTURES,TOGGLE_SETTINGS,TOGGLE_ADDTYPE,TOGGLE_RIGHT_TABS,ADD_SUB_MOUSEENTER,TOGGLE_QMARK,ITEM_DRAG_START,ITEM_DRAG_STOP,ITEM_DRAG_MOUSEDOWN,ITEM_DROP_OVER,ITEM_DROP_STOP,OPEN_PROP_WINDOW,REMOVE_PROP}=Type;
 
 var timer=null;
 /**
@@ -411,3 +411,17 @@ export function itemDragStop(e,ui){
 export function itemDropStop(e,ui){
     return {type:ITEM_DROP_STOP,pleft:0,ptop:0,pheight:0,pwidth:0}
 }
+
+//右侧弹出窗口-------------------------------------------------------
+//点击OK按钮的时候
+export function openPropWindow(){
+    return {type:OPEN_PROP_WINDOW,openPropWindow:0}
+}
+//移除属性，点击移除属性的时候
+export function removeThisProp(prop){
+    return function(dispatch){
+        dispatch({type:REMOVE_PROP,prop});
+        dispatch({type:OPEN_PROP_WINDOW,openPropWindow:1});
+    }
+}
+//右侧弹出窗口-------------------------------------------------------

@@ -30,6 +30,20 @@ const index=(state=indexInit,action)=>{
         return Object.assign({},state,{
             layoutDragXY:action.data
         });
+        case 'REMOVE_PROP':
+        let removeProp=Object.assign({},state,{
+            siteData:state.siteData//整个网站数据
+        });
+        //找到这个属性，然后删除
+        (function(){
+            //当前节点数据
+            let node=removeProp.siteData.data[state.sid];
+            //找到最后一个使用中的类
+            let index=getClsList(node.classes);
+            let style=node.classes[index].style;
+            delete style[action.prop];
+        })()
+        return removeProp;
         case 'NODE_BEFORE_DRAG':
         return Object.assign({},state,{
             layoutDragType:action.layoutDragType,

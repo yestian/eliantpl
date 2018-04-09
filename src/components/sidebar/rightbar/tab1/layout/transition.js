@@ -19,14 +19,14 @@ class Transition extends Component{
          return(
             <div className="transition-parent kit-panel">
                 <Width data={this.props}/>
-                <Height/>
-                {adv?<MinWidth/>:''}
-                {adv?<MinHeight/>:''}
-                {adv?<MaxWidth/>:''}
-                {adv?<MaxHeight/>:''}
+                <Height data={this.props}/>
+                {adv?<MinWidth data={this.props}/>:''}
+                {adv?<MinHeight data={this.props}/>:''}
+                {adv?<MaxWidth data={this.props}/>:''}
+                {adv?<MaxHeight data={this.props}/>:''}
                 {adv?<div className="transition-child clearfix" />:''}
                 {adv?<div className="transition-child kit-divider-small" />:''}
-                <Float/>
+                <Float data={this.props}/>
                 {adv?<Clear/>:''}
                 {adv?<div className="transition-child kit-divider-small" />:''}
                 {adv?<OverFlow/>:''}

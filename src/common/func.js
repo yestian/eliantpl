@@ -59,20 +59,7 @@ function getClsList(classes,related=0){
 
 
 
-/**
- * 使用indexOf判断元素是否存在于数组中
- * @param {Object} arr 数组
- * @param {Object} value 元素值
- */
-function isInArray(arr,value){
-    if(arr.indexOf&&typeof(arr.indexOf)==='function'){
-        var index = arr.indexOf(value);
-        if(index >= 0){
-            return true;
-        }
-    }
-    return false;
-}
+
 
 //layout值的转换
 function transLateValue(prop,obj,index,M){
@@ -108,6 +95,9 @@ function transLateValue(prop,obj,index,M){
         //转换为auto
         newObj[prop]='auto';
         newObj.unit='';
+        if(prop==='min-width' ||prop==='min-height'||prop==='max-width'||prop==='max-width'){
+            newObj[prop]='none';
+        }
     }
     return newObj;
     // {
@@ -127,5 +117,6 @@ function transLateValue(prop,obj,index,M){
 
 export default {
     "thisCls":thisCls,
-    "transLateValue":transLateValue
+    "transLateValue":transLateValue,
+    "getClsList":getClsList
 }
